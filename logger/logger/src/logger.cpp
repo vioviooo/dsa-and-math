@@ -1,5 +1,6 @@
 #include "../include/logger.h"
 #include <iomanip>
+#include <sstream>
 
 logger const *logger::trace(
     std::string const &message) const noexcept
@@ -57,6 +58,36 @@ std::string logger::severity_to_string(
     }
 
     throw std::out_of_range("Invalid severity value");
+}
+
+logger::severity logger::string_to_severity(
+        std::string severity_string) 
+{
+    if (severity_string == "trace")
+    {
+        return logger::severity::trace;
+    }
+    if (severity_string == "debug")
+    {
+        return logger::severity::debug;
+    }
+    if (severity_string == "information")
+    {
+        return logger::severity::information;
+    }
+    if (severity_string == "warning")
+    {
+        return logger::severity::warning;
+    }
+    if (severity_string == "error")
+    {
+        return logger::severity::error;
+    }
+    if (severity_string == "critical")
+    {
+        return logger::severity::critical;
+    }
+    throw std::out_of_range("Invalid severity string value");
 }
 
 std::string logger::current_datetime_to_string() noexcept
