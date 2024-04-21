@@ -15,6 +15,19 @@ class allocator_buddies_system final:
     private typename_holder
 {
 
+private: 
+    struct header {
+        size_t size;
+        bool is_free;
+    };
+
+private:
+    struct list_node {
+        list_node* next;
+        list_node* prev;
+        header* header;
+    };
+
 private:
     
     void *_trusted_memory;
