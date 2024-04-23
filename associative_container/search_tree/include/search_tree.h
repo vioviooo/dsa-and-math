@@ -44,7 +44,7 @@ public:
     };
 
 protected:
-    
+
     std::function<int(tkey const &, tkey const &)> _keys_comparer;
 
 private:
@@ -102,9 +102,12 @@ template<
 search_tree<tkey, tvalue>::search_tree(
     std::function<int(tkey const &, tkey const &)> keys_comparer,
     logger *logger,
-    allocator *allocator)
+    allocator *allocator):
+        _keys_comparer(keys_comparer),
+        _logger(logger),
+        _allocator(allocator)
 {
-    throw not_implemented("template<typename tkey, typename tvalue> search_tree<tkey, tvalue>::search_tree(std::function<int(tkey const &, tkey const &)>, logger *, allocator *)", "your code should be here...");
+
 }
 
 template<
@@ -112,7 +115,7 @@ template<
     typename tvalue>
 [[nodiscard]] inline allocator *search_tree<tkey, tvalue>::get_allocator() const
 {
-    throw not_implemented("template<typename tkey, typename tvalue> [[nodiscard]] inline allocator *search_tree<tkey, tvalue>::get_allocator() const", "your code should be here...");
+    return _allocator;
 }
 
 template<
