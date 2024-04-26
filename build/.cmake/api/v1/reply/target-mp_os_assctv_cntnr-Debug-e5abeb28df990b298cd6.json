@@ -1,0 +1,74 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "associative_container/libmp_os_assctv_cntnr.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"associative_container/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 5,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 12,
+				"parent" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "mp_os_cmmn::@bfc844598bd03e848b3c"
+		}
+	],
+	"id" : "mp_os_assctv_cntnr::@eceec357cdd12af20473",
+	"name" : "mp_os_assctv_cntnr",
+	"nameOnDisk" : "libmp_os_assctv_cntnr.a",
+	"paths" : 
+	{
+		"build" : "associative_container",
+		"source" : "associative_container"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"path" : "associative_container/include/associative_container.h",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

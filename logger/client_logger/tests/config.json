@@ -1,0 +1,26 @@
+{
+    "loggers": {
+        "mainLogger": {
+            "level": "information",
+            "format": "[%s (0-0) -=-=- %m: %d]",
+            "file_path": "test.txt"
+        },
+        "serviceLogger": {
+            "level": "debug",
+            "format": "[%d] [%s] - %m",
+            "file_path": "stdout"
+        }
+    },
+    "logs": {
+        "mainLogger": {
+            "aboba": {
+                "level": "trace",
+                "level2": "debug",
+                "level3": "information",
+                "format": "[%s ^-^ %m: %d]",
+                "file_path": "/Users/vioviooo/Desktop/mp_os/logger/client_logger/tests/test.txt",
+                "file_path2": "stdout"
+            }
+        }
+    }
+}
