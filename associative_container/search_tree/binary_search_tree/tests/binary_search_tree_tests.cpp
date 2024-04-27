@@ -599,39 +599,11 @@ TEST(binarySearchTreePositiveTests, test11)
     delete logger;
 }
 
-class int_comparer final
-{
-
-public:
-
-    int operator()(
-        int const &left,
-        int const &right) const noexcept
-    {
-        return left - right;
-    }
-
-};
-
 int main(
     int argc,
     char **argv)
 {
-    // binary_search_tree<int, std::string> tree([](int const &left, int const &right) { return left - right; });
-
-    // std::string str = "123456";
-    // std::string str2 = "1234";
-
-    // tree.insert(10, std::move(str));
-    // tree.insert(11, str2);
-    // tree.insert(12, str2);
-    // tree.insert(9, str2);
-    // tree.insert(-3,str2);
-    // int x = 10;
-
     testing::InitGoogleTest(&argc, argv);
     
     return RUN_ALL_TESTS();
-
-    return 0;
 }

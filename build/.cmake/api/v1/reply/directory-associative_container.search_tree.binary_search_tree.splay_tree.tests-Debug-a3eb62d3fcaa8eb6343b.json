@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "associative_container/search_tree/binary_search_tree/splay_tree/tests",
+		"source" : "associative_container/search_tree/binary_search_tree/splay_tree/tests"
+	}
+}

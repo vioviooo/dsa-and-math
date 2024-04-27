@@ -1,0 +1,329 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "associative_container/search_tree/binary_search_tree/AVL_tree/tests/mp_os_assctv_cntnr_srch_tr_bnr_srch_tr_AVL_tr_tests"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"associative_container/search_tree/binary_search_tree/AVL_tree/tests/CMakeLists.txt",
+			"build/_deps/googletest-src/googletest/CMakeLists.txt",
+			"associative_container/search_tree/binary_search_tree/AVL_tree/CMakeLists.txt",
+			"logger/client_logger/CMakeLists.txt",
+			"associative_container/search_tree/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 15,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 18,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 22,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 26,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 30,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 34,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 161,
+				"parent" : 7
+			},
+			{
+				"file" : 2
+			},
+			{
+				"command" : 1,
+				"file" : 2,
+				"line" : 20,
+				"parent" : 9
+			},
+			{
+				"command" : 1,
+				"file" : 2,
+				"line" : 16,
+				"parent" : 9
+			},
+			{
+				"file" : 3
+			},
+			{
+				"command" : 1,
+				"file" : 3,
+				"line" : 21,
+				"parent" : 12
+			},
+			{
+				"file" : 4
+			},
+			{
+				"command" : 1,
+				"file" : 4,
+				"line" : 21,
+				"parent" : 14
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -std=c++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/common/./include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/logger/client_logger/./include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/logger/logger/./include"
+				},
+				{
+					"backtrace" : 4,
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/build/_deps/json-src/include"
+				},
+				{
+					"backtrace" : 5,
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/./include"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/search_tree/binary_search_tree/AVL_tree/./include"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/search_tree/./include"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/allocator/allocator/./include"
+				},
+				{
+					"backtrace" : 6,
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/search_tree/binary_search_tree/./include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/build/_deps/googletest-src/googletest/include"
+				},
+				{
+					"backtrace" : 2,
+					"isSystem" : true,
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/build/_deps/googletest-src/googletest"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					2,
+					4
+				],
+				"standard" : "14"
+			},
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 6,
+			"id" : "mp_os_allctr_allctr::@67a2d12acd41ed6b0bc3"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "gtest::@1ea2dfc0605fe3ab2a3f"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "gtest_main::@1ea2dfc0605fe3ab2a3f"
+		},
+		{
+			"backtrace" : 5,
+			"id" : "mp_os_assctv_cntnr::@eceec357cdd12af20473"
+		},
+		{
+			"backtrace" : 6,
+			"id" : "mp_os_assctv_cntnr_srch_tr::@32bbdc00ff9a6995c868"
+		},
+		{
+			"backtrace" : 6,
+			"id" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr::@af874379a609ad2410a4"
+		},
+		{
+			"backtrace" : 6,
+			"id" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr_AVL_tr::@2366b3e891cff899f730"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "mp_os_cmmn::@bfc844598bd03e848b3c"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "mp_os_lggr_clnt_lggr::@1192419ba09c9016d213"
+		},
+		{
+			"backtrace" : 4,
+			"id" : "mp_os_lggr_lggr::@af94273c3084cfb43adb"
+		}
+	],
+	"id" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr_AVL_tr_tests::@2184cf2940259ea5a639",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "../../../../../lib/libgtest_main.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "../../../../../common/libmp_os_cmmn.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 4,
+				"fragment" : "../../../../../logger/client_logger/libmp_os_lggr_clnt_lggr.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "../../../../libmp_os_assctv_cntnr.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "../libmp_os_assctv_cntnr_srch_tr_bnr_srch_tr_AVL_tr.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 8,
+				"fragment" : "../../../../../lib/libgtest.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 10,
+				"fragment" : "../../libmp_os_assctv_cntnr_srch_tr_bnr_srch_tr.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 11,
+				"fragment" : "../../../libmp_os_assctv_cntnr_srch_tr.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "../../../../libmp_os_assctv_cntnr.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "../../../../../common/libmp_os_cmmn.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 13,
+				"fragment" : "../../../../../logger/logger/libmp_os_lggr_lggr.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 15,
+				"fragment" : "../../../../../allocator/allocator/libmp_os_allctr_allctr.a",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr_AVL_tr_tests",
+	"nameOnDisk" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr_AVL_tr_tests",
+	"paths" : 
+	{
+		"build" : "associative_container/search_tree/binary_search_tree/AVL_tree/tests",
+		"source" : "associative_container/search_tree/binary_search_tree/AVL_tree/tests"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "associative_container/search_tree/binary_search_tree/AVL_tree/tests/AVL_tree_tests.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

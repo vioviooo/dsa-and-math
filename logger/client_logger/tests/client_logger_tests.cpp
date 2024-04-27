@@ -1,10 +1,10 @@
 #include <gtest/gtest.h>
-
 #include <client_logger.h>
 #include <client_logger_builder.h>
 
-int main(int argc, char *argv[]) {
 
+int main(int argc, char *argv[])
+{
     auto* build1 = new client_logger_builder("ayo: %m");
     auto* build2 = new client_logger_builder();
     auto* build3 = new client_logger_builder();
@@ -21,14 +21,13 @@ int main(int argc, char *argv[]) {
     log3->log("knock-knock", logger::severity::information);
     log3->log("boohoo", logger::severity::debug);
 
-    delete build1;
+    delete log3;
+    delete build3;
+
     delete log1;
+    delete build1;
 
     // delete build2;
     // delete log2;
-
-    delete build3;
-    delete log3;
-
     return 0;
 }

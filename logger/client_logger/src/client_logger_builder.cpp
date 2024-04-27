@@ -1,20 +1,9 @@
-#include <not_implemented.h>
-
-#include "../include/client_logger_builder.h"
-
-#include "../include/client_logger.h"
-
+#include "client_logger_builder.h"
+#include "client_logger.h"
 #include "logger_builder.h"
-
 #include <filesystem>
-
 #include <fstream>
-
 #include <sstream>
-
-#include <nlohmann/json.hpp>
-
-using json = nlohmann::json;
 
 client_logger_builder::client_logger_builder() {
     _format = "%d - %t - [%s] - %m"; // default format
@@ -23,6 +12,7 @@ client_logger_builder::client_logger_builder() {
 client_logger_builder::client_logger_builder(std::string const& format_string) {
     _format = format_string;
 }
+
 
 logger_builder* client_logger_builder::add_file_stream(std::string const &stream_file_path, logger::severity severity) {
     std::__fs::filesystem::path path(stream_file_path);

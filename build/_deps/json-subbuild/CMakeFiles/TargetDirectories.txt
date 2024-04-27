@@ -1,0 +1,3 @@
+/Users/vioviooo/Desktop/twink/mp_os/build/_deps/json-subbuild/CMakeFiles/json-populate.dir
+/Users/vioviooo/Desktop/twink/mp_os/build/_deps/json-subbuild/CMakeFiles/edit_cache.dir
+/Users/vioviooo/Desktop/twink/mp_os/build/_deps/json-subbuild/CMakeFiles/rebuild_cache.dir

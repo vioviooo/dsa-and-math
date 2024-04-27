@@ -1,8 +1,6 @@
 #include <not_implemented.h>
-
-#include <client_logger.h>
-#include <client_logger_builder.h>
-
+#include "client_logger.h"
+#include "client_logger_builder.h"
 #include <string>
 #include <fstream>
 

@@ -1,0 +1,96 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "associative_container/search_tree/binary_search_tree/libmp_os_assctv_cntnr_srch_tr_bnr_srch_tr.a"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"target_link_libraries"
+		],
+		"files" : 
+		[
+			"associative_container/search_tree/binary_search_tree/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 9,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 20,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 16,
+				"parent" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 2,
+			"id" : "mp_os_allctr_allctr::@67a2d12acd41ed6b0bc3"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "mp_os_assctv_cntnr::@eceec357cdd12af20473"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "mp_os_assctv_cntnr_srch_tr::@32bbdc00ff9a6995c868"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "mp_os_cmmn::@bfc844598bd03e848b3c"
+		},
+		{
+			"backtrace" : 2,
+			"id" : "mp_os_lggr_lggr::@af94273c3084cfb43adb"
+		}
+	],
+	"id" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr::@af874379a609ad2410a4",
+	"name" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr",
+	"nameOnDisk" : "libmp_os_assctv_cntnr_srch_tr_bnr_srch_tr.a",
+	"paths" : 
+	{
+		"build" : "associative_container/search_tree/binary_search_tree",
+		"source" : "associative_container/search_tree/binary_search_tree"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Header Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"path" : "associative_container/search_tree/binary_search_tree/include/binary_search_tree.h",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

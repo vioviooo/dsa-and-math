@@ -1,8 +1,0 @@
-21.04.2024 - 23:19:47 - [DEBUG] - Global heap allocator: Constructor called.
-21.04.2024 - 23:19:47 - [DEBUG] - Global heap allocator: Trying to allocate 8 bytes...
-21.04.2024 - 23:19:47 - [DEBUG] - Global heap allocator: Allocated 8 bytes successfully.
-21.04.2024 - 23:19:47 - [DEBUG] - Global heap allocator: Destructor called.
-21.04.2024 - 23:19:47 - [DEBUG] - Global heap allocator: Constructor called.
-21.04.2024 - 23:19:47 - [DEBUG] - Global heap allocator: Trying to deallocate 
-21.04.2024 - 23:19:47 - [DEBUG] - Global heap allocator: Deallocated 
-21.04.2024 - 23:19:47 - [DEBUG] - Global heap allocator: Destructor called.
