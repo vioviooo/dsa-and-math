@@ -6,6 +6,7 @@
 #include <allocator_with_fit_mode.h>
 #include <logger_guardant.h>
 #include <typename_holder.h>
+#include <list>
 
 class allocator_sorted_list final:
     private allocator_guardant,
@@ -16,18 +17,21 @@ class allocator_sorted_list final:
 {
 
 private:
-    
-    void *_trusted_memory;
+    void* _trusted_memory;
 
+private:
+    const static size_t block_meta = sizeof(void*) + sizeof(size_t);
+    constexpr const static size_t allocator_meta = sizeof(void*); // ! lol change it later
+    
 public:
     
     ~allocator_sorted_list() override;
     
     allocator_sorted_list(
-        allocator_sorted_list const &other);
+        allocator_sorted_list const &other) = delete;
     
     allocator_sorted_list &operator=(
-        allocator_sorted_list const &other);
+        allocator_sorted_list const &other) = delete;
     
     allocator_sorted_list(
         allocator_sorted_list &&other) noexcept;
@@ -61,6 +65,14 @@ private:
     
     inline allocator *get_allocator() const override;
 
+private: // * my additions
+    inline allocator_with_fit_mode::fit_mode get_fit_mode() const;
+    std::mutex* get_mutex() const;
+    void* get_mem_block(size_t size, allocator_with_fit_mode::fit_mode mode);
+    void** get_first_mem_block();
+    size_t get_block_size(void** ptr);
+    void* get_next_block(void** ptr);
+
 public:
     
     std::vector<allocator_test_utils::block_info> get_blocks_info() const noexcept override;
@@ -70,9 +82,9 @@ private:
     inline logger *get_logger() const override;
 
 private:
-    
     inline std::string get_typename() const noexcept override;
-    
 };
 
 #endif //MATH_PRACTICE_AND_OPERATING_SYSTEMS_ALLOCATOR_ALLOCATOR_SORTED_LIST_H
+
+// !!!!!!!!!!!!!!!!!!!!!!!
