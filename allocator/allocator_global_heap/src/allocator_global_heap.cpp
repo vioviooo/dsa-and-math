@@ -35,7 +35,7 @@ allocator_global_heap &allocator_global_heap::operator=(allocator_global_heap &&
     return* this;
 }
 
-[[nodiscard]] void* allocator_global_heap::allocate(
+[[nodiscard]] void* allocator_global_heap::allocate( // * ALLOCATE
     size_t value_size,
     size_t values_count)
 {
@@ -59,27 +59,36 @@ allocator_global_heap &allocator_global_heap::operator=(allocator_global_heap &&
 
     information_with_guard("Global heap allocator: Allocated " + std::to_string(result_size) + " bytes successfully");
 
+    
     void* next_ptr = reinterpret_cast<void*>(static_cast<char*>(ptr) + sizeof(std::size_t));
 
     debug_with_guard("Global heap allocator: Memory dump: " + get_mem_dump(next_ptr));
-    std::cout << "MEMORY DUMP: " << get_mem_dump(next_ptr) << std::endl;
+    // std::cout << "MEMORY DUMP: " << get_mem_dump(next_ptr) << std::endl;
+
+    allocated_blocks.insert(next_ptr);
 
     return next_ptr;
 }
 
-void allocator_global_heap::deallocate(
+void allocator_global_heap::deallocate( // * DEALLOCATE
     void* at)
 {
     if (at == nullptr) {
         error_with_guard("Global heap allocator: nullptr pointer passed to deallocate()");
-        // throw std::invalid_argument("nullptr pointer passed to deallocate()");
+        throw std::invalid_argument("nullptr pointer passed to deallocate()"); // ! 
         return;
     }
 
     information_with_guard("Global heap allocator: Trying to deallocate " + std::to_string(get_block_size(at)) + " bytes...");
     debug_with_guard("Global heap allocator: Memory dump: " + get_mem_dump(at));
     
-    std::cout << "MEMORY DUMP: " << get_mem_dump(at) << std::endl;
+    // std::cout << "MEMORY DUMP: " << get_mem_dump(at) << std::endl;
+
+    if (!allocated_blocks.count(at)) {
+        error_with_guard("Global heap allocator: Trying to deallocate memory allocated BY OTHER ALLOCATOR");
+        std::logic_error("Trying to deallocate memory allocated BY OTHER ALLOCATOR");
+        return;
+    }
     
     ::operator delete(reinterpret_cast<std::size_t*>(static_cast<char*>(at) - sizeof(std::size_t)));
 }

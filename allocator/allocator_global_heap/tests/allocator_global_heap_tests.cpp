@@ -132,22 +132,52 @@ TEST(allocatorGlobalHeapTests, test5)
 }
 
 
-TEST(allocatorGlobalHeapTests, test6)
+TEST(allocatorGlobalHeapTests, test6) // * CHECK NULLPTR DEALLOC TEST * //
 {
     logger_builder *logger_builder_instance = new client_logger_builder;
     
     logger *logger_instance = logger_builder_instance
-        ->add_console_stream(logger::severity::information)
-        ->add_console_stream(logger::severity::error)
-        ->add_console_stream(logger::severity::debug)
+        // ->add_console_stream(logger::severity::information)
+        // ->add_console_stream(logger::severity::error)
+        // ->add_console_stream(logger::severity::debug)
         ->build();
     delete logger_builder_instance;
 
     allocator *allocator_instance = new allocator_global_heap(logger_instance);
 
-    allocator_instance->deallocate(nullptr);
+    try {
+        allocator_instance->deallocate(nullptr);
+    } catch (...) {
+        std::cerr << "Nullptr deallocation attempt detected!" << std::endl;
+    }
     
     delete allocator_instance;
+}
+
+TEST(allocatorGlobalHeapTests, test7) // * CHECK OWNERSHIP TEST * //
+{
+    logger_builder *logger_builder_instance = new client_logger_builder;
+    
+    logger *logger_instance = logger_builder_instance
+        // ->add_console_stream(logger::severity::information)
+        ->add_console_stream(logger::severity::error)
+        // ->add_console_stream(logger::severity::debug)
+        ->build();
+    delete logger_builder_instance;
+
+    allocator *allocator_instance = new allocator_global_heap(logger_instance);
+    allocator *another_allocator_instance = new allocator_global_heap(logger_instance);
+
+    auto ptr_1 = allocator_instance->allocate(1, 0);
+    auto ptr_2 = another_allocator_instance->allocate(2, 1);
+
+    allocator_instance->deallocate(ptr_2); // ! this will cause memory leak if not checked
+    another_allocator_instance->deallocate(ptr_1); // ! this will cause memory leak if not checked
+    allocator_instance->deallocate(ptr_1); // * all good
+    another_allocator_instance->deallocate(ptr_2); // * all good
+    
+    delete allocator_instance;
+    delete another_allocator_instance;
 }
 
 

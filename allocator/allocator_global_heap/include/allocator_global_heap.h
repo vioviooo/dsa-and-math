@@ -9,6 +9,8 @@
 
 #include <typename_holder.h>
 
+#include <unordered_set>
+
 class allocator_global_heap final:
     public allocator,
     private logger_guardant,
@@ -18,6 +20,7 @@ class allocator_global_heap final:
 private:
     logger *_logger;
     static const size_t meta = sizeof(size_t);
+    std::unordered_set <void*> allocated_blocks;
 
 public:
     
