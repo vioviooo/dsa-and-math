@@ -500,9 +500,6 @@ INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/inlinedef/inlinedef.sty
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/inlinedef/inlinedef.sty
-INPUT ./main.aux
-INPUT ./main.aux
-INPUT main.aux
 OUTPUT main.aux
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/cbfonts-fd/lgrcmr.fd
 INPUT /usr/local/texlive/2024/texmf-dist/tex/latex/cbfonts-fd/lgrcmr.fd

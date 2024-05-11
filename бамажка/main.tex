@@ -463,11 +463,15 @@ i: n
     \end{align}
     Тогда рассматриваемая сумма примет вид:
     \begin{align}
-    & \sum_{k=1}^{n} \frac{ln(k)}{k} \equiv \int_1^n \frac{ln(x)}{x} + \frac{ln(n)}{2n} + \sum_{m=1}^{+\infty} \frac{B_{2m}\cdot (\frac{ln(n)}{n})^{2m-1}}{(2m)!}
+    & \sum_{k=1}^{n} \frac{ln(k)}{k} \equiv \int_1^n \frac{ln(x)}{x}dx + \frac{ln(n)}{2n} + \sum_{m=1}^{+\infty} \frac{B_{2m}\cdot (\frac{ln(n)}{n})^{2m-1}}{(2m)!}
     \end{align}
-    Найдем определенный интеграл:
+    Найдем неопределнный интеграл $\int \frac{ln(x)}{x}dx$:
     \begin{align}
-    & \int_1^n \frac{ln(x)}{x} = \frac{ln^2(n)}{2}
+    & u=ln(x) \Rightarrow du = \frac{1}{x} dx \Rightarrow \int u du = \frac{u^2}{2} \Rightarrow \int \frac{ln(x)}{x}dx = \frac{ln^2(x)}{2}
+    \end{align}
+    Теперь можем найти опредленный интеграл:
+    \begin{align}
+    & \int_1^n \frac{ln(x)}{x}dx = \frac{ln^2(n)}{2}-\frac{ln^2(1)}{2} = \frac{ln^2(n)}{2}
     \end{align}
     Теперь поработаем с бесконечным рядом $\sum_{m=1}^\infty \frac{f^{(2m-1)}(n) \cdot B_{2m}}{(2m)!}$, где $f^{(2m-1)}(n)$ - $(2m-1)$-я производная функции $\frac{ln(n)}{n}$. Рассмотрим данную сумму ряда при $n \rightarrow \infty$.
     \begin{align}
@@ -484,7 +488,7 @@ i: n
     \end{align}
     Тогда итоговое преобразование:
     \begin{align}   
-    & \prod_{k=1}^{n} k^k \equiv e^{\frac{n^2 \cdot ln(n)}{2}-\frac{n^2}{4}+\frac{1}{4} + \frac{n \cdot ln(n)}{2}+\frac{1-ln(n)}{12n^2}}
+    & \prod_{k=1}^{n} k^k \equiv e^{\frac{ln(n)^2}{2}+\frac{ln(n)}{2n} +\frac{1-ln(n)}{12n^2}}
     \end{align}
 \end{flushleft}
 
