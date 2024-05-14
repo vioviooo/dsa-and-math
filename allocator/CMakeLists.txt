@@ -4,7 +4,7 @@ project(mp_os_allctr
         DESCRIPTION "allocators interface & implementations project"
         LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(allocator)
 add_subdirectory(allocator_boundary_tags)

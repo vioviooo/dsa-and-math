@@ -65,12 +65,6 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 38,
-				"parent" : 0
-			},
-			{
-				"command" : 1,
-				"file" : 0,
 				"line" : 42,
 				"parent" : 0
 			},
@@ -81,7 +75,7 @@
 				"command" : 1,
 				"file" : 1,
 				"line" : 161,
-				"parent" : 9
+				"parent" : 8
 			},
 			{
 				"file" : 2
@@ -90,7 +84,7 @@
 				"command" : 1,
 				"file" : 2,
 				"line" : 28,
-				"parent" : 11
+				"parent" : 10
 			},
 			{
 				"file" : 3
@@ -98,8 +92,14 @@
 			{
 				"command" : 1,
 				"file" : 3,
-				"line" : 20,
-				"parent" : 13
+				"line" : 21,
+				"parent" : 12
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 38,
+				"parent" : 0
 			},
 			{
 				"file" : 4
@@ -148,19 +148,19 @@
 					"path" : "/Users/vioviooo/Desktop/twink/mp_os/allocator/allocator_global_heap/./include"
 				},
 				{
-					"backtrace" : 7,
+					"backtrace" : 14,
 					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/./include"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 7,
 					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/search_tree/binary_search_tree/scapegoat_tree/./include"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 7,
 					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/search_tree/binary_search_tree/./include"
 				},
 				{
-					"backtrace" : 8,
+					"backtrace" : 7,
 					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/search_tree/./include"
 				},
 				{
@@ -209,19 +209,19 @@
 			"id" : "mp_os_allctr_allctr_glbl_hp::@5406ead77bdc8e4b04d8"
 		},
 		{
-			"backtrace" : 7,
+			"backtrace" : 14,
 			"id" : "mp_os_assctv_cntnr::@eceec357cdd12af20473"
 		},
 		{
-			"backtrace" : 8,
+			"backtrace" : 7,
 			"id" : "mp_os_assctv_cntnr_srch_tr::@32bbdc00ff9a6995c868"
 		},
 		{
-			"backtrace" : 8,
+			"backtrace" : 7,
 			"id" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr::@af874379a609ad2410a4"
 		},
 		{
-			"backtrace" : 8,
+			"backtrace" : 7,
 			"id" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr_scpgt_tr::@3d7d22394745a5733330"
 		},
 		{
@@ -251,6 +251,10 @@
 				"role" : "flags"
 			},
 			{
+				"fragment" : "-Wl,-rpath,/Users/vioviooo/Desktop/twink/mp_os/build/associative_container/search_tree/binary_search_tree -Wl,-rpath,/Users/vioviooo/Desktop/twink/mp_os/build/associative_container/search_tree -Wl,-rpath,/Users/vioviooo/Desktop/twink/mp_os/build/associative_container",
+				"role" : "libraries"
+			},
+			{
 				"backtrace" : 2,
 				"fragment" : "../../../../../lib/libgtest_main.a",
 				"role" : "libraries"
@@ -277,27 +281,22 @@
 			},
 			{
 				"backtrace" : 7,
-				"fragment" : "../../../../libmp_os_assctv_cntnr.a",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 8,
 				"fragment" : "../libmp_os_assctv_cntnr_srch_tr_bnr_srch_tr_scpgt_tr.a",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 10,
+				"backtrace" : 9,
 				"fragment" : "../../../../../lib/libgtest.a",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 12,
-				"fragment" : "../../libmp_os_assctv_cntnr_srch_tr_bnr_srch_tr.a",
+				"backtrace" : 11,
+				"fragment" : "../../libmp_os_assctv_cntnr_srch_tr_bnr_srch_tr.1.0.dylib",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 14,
-				"fragment" : "../../../libmp_os_assctv_cntnr_srch_tr.a",
+				"backtrace" : 13,
+				"fragment" : "../../../libmp_os_assctv_cntnr_srch_tr.1.0.dylib",
 				"role" : "libraries"
 			},
 			{
@@ -306,8 +305,8 @@
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 7,
-				"fragment" : "../../../../libmp_os_assctv_cntnr.a",
+				"backtrace" : 14,
+				"fragment" : "../../../../libmp_os_assctv_cntnr.1.0.dylib",
 				"role" : "libraries"
 			},
 			{

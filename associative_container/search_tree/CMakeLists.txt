@@ -5,6 +5,7 @@ add_subdirectory(binary_search_tree)
 add_subdirectory(indexing_tree)
 add_library(
         mp_os_assctv_cntnr_srch_tr
+        SHARED
         include/search_tree.h)
 target_include_directories(
         mp_os_assctv_cntnr_srch_tr

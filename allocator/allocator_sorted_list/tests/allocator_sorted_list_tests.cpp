@@ -33,8 +33,15 @@ logger *create_logger(
 TEST(allocatorSortedListPositiveTests, test1)
 {
     //TODO: logger
+    logger *logger_instance = create_logger(std::vector<std::pair<std::string, logger::severity>>
+                                                    {
+                                                            {
+                                                                    "allocator_boundary_tags_tests_logs_false_positive_test_1.txt",
+                                                                    logger::severity::information
+                                                            },
+                                                    });
     
-    allocator *alloc = new allocator_sorted_list(3000, nullptr, nullptr, allocator_with_fit_mode::fit_mode::first_fit);
+    allocator *alloc = new allocator_sorted_list(3000, nullptr, logger_instance, allocator_with_fit_mode::fit_mode::first_fit);
     
     auto first_block = reinterpret_cast<int *>(alloc->allocate(sizeof(int), 250));
     
@@ -55,8 +62,15 @@ TEST(allocatorSortedListPositiveTests, test2)
 {
     
     //TODO: logger
+    logger *logger_instance = create_logger(std::vector<std::pair<std::string, logger::severity>>
+                                                    {
+                                                            {
+                                                                    "allocator_boundary_tags_tests_logs_false_positive_test_1.txt",
+                                                                    logger::severity::information
+                                                            }
+                                                    });
     
-    allocator *alloc = new allocator_sorted_list(3000, nullptr, nullptr,
+    allocator *alloc = new allocator_sorted_list(3000, nullptr, logger_instance,
         allocator_with_fit_mode::fit_mode::the_worst_fit);
     
     auto first_block = reinterpret_cast<int *>(alloc->allocate(sizeof(int), 250));
@@ -74,12 +88,20 @@ TEST(allocatorSortedListPositiveTests, test2)
     //TODO: проверка
     
     delete alloc;
+    delete logger_instance;
 }
 
 TEST(allocatorSortedListPositiveTests, test3)
 {
     //TODO: logger
-    allocator *allocator = new allocator_sorted_list(5000, nullptr, nullptr, allocator_with_fit_mode::fit_mode::first_fit);
+    logger *logger_instance = create_logger(std::vector<std::pair<std::string, logger::severity>>
+                                                    {
+                                                            {
+                                                                    "allocator_boundary_tags_tests_logs_false_positive_test_1.txt",
+                                                                    logger::severity::information
+                                                            }
+                                                    });
+    allocator *allocator = new allocator_sorted_list(5000, nullptr, logger_instance, allocator_with_fit_mode::fit_mode::first_fit);
     
     int iterations_count = 100;
     
@@ -91,7 +113,6 @@ TEST(allocatorSortedListPositiveTests, test3)
         switch (rand() % 2)
         {
             case 0:
-            case 1:
                 try
                 {
                     allocated_blocks.push_front(allocator->allocate(sizeof(void *), rand() % 251 + 50));
@@ -102,7 +123,7 @@ TEST(allocatorSortedListPositiveTests, test3)
                     std::cout << ex.what() << std::endl;
                 }
                 break;
-            case 2:
+            case 1:
                 if (allocated_blocks.empty())
                 {
                     std::cout << "No blocks to deallocate" << std::endl;
@@ -131,6 +152,7 @@ TEST(allocatorSortedListPositiveTests, test3)
     //TODO: проверка
     
     delete allocator;
+    delete logger_instance;
     // delete logger;
     
     
@@ -139,19 +161,26 @@ TEST(allocatorSortedListPositiveTests, test3)
 TEST(allocatorSortedListPositiveTests, test4)
 {
     //TODO: logger
-    
-    allocator *alloc = new allocator_sorted_list(1000, nullptr, nullptr, allocator_with_fit_mode::fit_mode::first_fit);
+    logger *logger_instance = create_logger(std::vector<std::pair<std::string, logger::severity>>
+                                                    {
+                                                            {
+                                                                    "allocator_boundary_tags_tests_logs_false_positive_test_1.txt",
+                                                                    logger::severity::information
+                                                            }
+                                                    });
+
+    allocator *alloc = new allocator_sorted_list(1000, nullptr, logger_instance, allocator_with_fit_mode::fit_mode::first_fit);
     
     auto first_block = reinterpret_cast<unsigned char *>(alloc->allocate(sizeof(unsigned char), 250));
     auto second_block = reinterpret_cast<unsigned char *>(alloc->allocate(sizeof(char), 150));
-    auto third_block = reinterpret_cast<unsigned char *>(alloc->allocate(sizeof(unsigned char *), 300));
+    auto third_block = reinterpret_cast<unsigned char *>(alloc->allocate(sizeof(unsigned char), 300));
     
     auto *the_same_subject = dynamic_cast<allocator_with_fit_mode *>(alloc);
     the_same_subject->set_fit_mode(allocator_with_fit_mode::fit_mode::the_worst_fit);
-    auto four_block = reinterpret_cast<unsigned char *>(alloc->allocate(sizeof(unsigned char *), 50));
+    auto four_block = reinterpret_cast<unsigned char *>(alloc->allocate(sizeof(unsigned char), 50));
     
     the_same_subject->set_fit_mode(allocator_with_fit_mode::fit_mode::the_best_fit);
-    auto five_block = reinterpret_cast<unsigned char *>(alloc->allocate(sizeof(unsigned char *), 50));
+    auto five_block = reinterpret_cast<unsigned char *>(alloc->allocate(sizeof(unsigned char), 50));
     
     alloc->deallocate(first_block);
     alloc->deallocate(second_block);
@@ -162,22 +191,31 @@ TEST(allocatorSortedListPositiveTests, test4)
     //TODO: проверка
     
     delete alloc;
+    delete logger_instance;
 }
 
 TEST(allocatorSortedListPositiveTests, test5)
 {
-    allocator *alloc = new allocator_sorted_list(3000, nullptr, nullptr, allocator_with_fit_mode::fit_mode::first_fit);
+    logger *logger_instance = create_logger(std::vector<std::pair<std::string, logger::severity>>
+                                                    {
+                                                            {
+                                                                    "allocator_boundary_tags_tests_logs_false_positive_test_1.txt",
+                                                                    logger::severity::information
+                                                            }
+                                                    });
+
+    allocator *alloc = new allocator_sorted_list(3000, nullptr, logger_instance, allocator_with_fit_mode::fit_mode::first_fit);
     
-    auto first_block = reinterpret_cast<int *>(alloc->allocate(sizeof(int), 250));
+    auto first_block = reinterpret_cast<int *>(alloc->allocate(sizeof(char), 250));
     auto second_block = reinterpret_cast<char *>(alloc->allocate(sizeof(char), 500));
-    auto third_block = reinterpret_cast<double *>(alloc->allocate(sizeof(double *), 250));
+    auto third_block = reinterpret_cast<double *>(alloc->allocate(sizeof(char), 250));
     alloc->deallocate(first_block);
-    first_block = reinterpret_cast<int *>(alloc->allocate(sizeof(int), 245));
+    first_block = reinterpret_cast<int *>(alloc->allocate(sizeof(char), 245));
     
     //TODO: logger
-    allocator *allocator = new allocator_sorted_list(5000, nullptr, nullptr, allocator_with_fit_mode::fit_mode::first_fit);
-    auto *the_same_subject = dynamic_cast<allocator_with_fit_mode *>(alloc);
-    int iterations_count = 100;
+    allocator *allocator = new allocator_sorted_list(7500, nullptr, nullptr, allocator_with_fit_mode::fit_mode::first_fit);
+    auto *the_same_subject = static_cast<allocator_with_fit_mode *>(alloc);
+    int iterations_count = 10000;
     
     std::list<void *> allocated_blocks;
     srand((unsigned)time(nullptr));
@@ -187,10 +225,9 @@ TEST(allocatorSortedListPositiveTests, test5)
         switch (rand() % 2)
         {
             case 0:
-            case 1:
                 try
                 {
-                    switch (rand() % 2)
+                    switch (rand() % 3)
                     {
                         case 0:
                             the_same_subject->set_fit_mode(allocator_with_fit_mode::fit_mode::first_fit);
@@ -200,7 +237,7 @@ TEST(allocatorSortedListPositiveTests, test5)
                             the_same_subject->set_fit_mode(allocator_with_fit_mode::fit_mode::the_worst_fit);
                     }
                     
-                    allocated_blocks.push_front(allocator->allocate(sizeof(void *), rand() % 251 + 50));
+                    allocated_blocks.push_front(allocator->allocate(sizeof(char), rand() % 251 + 50));
                     std::cout << "allocation succeeded" << std::endl;
                 }
                 catch (std::bad_alloc const &ex)
@@ -208,7 +245,7 @@ TEST(allocatorSortedListPositiveTests, test5)
                     std::cout << ex.what() << std::endl;
                 }
                 break;
-            case 2:
+            case 1:
                 if (allocated_blocks.empty())
                 {
                     std::cout << "No blocks to deallocate" << std::endl;

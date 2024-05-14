@@ -1,9 +1,8 @@
 {
-	"archive" : {},
 	"artifacts" : 
 	[
 		{
-			"path" : "associative_container/libmp_os_assctv_cntnr.a"
+			"path" : "associative_container/libmp_os_assctv_cntnr.dylib"
 		}
 	],
 	"backtrace" : 1,
@@ -32,7 +31,7 @@
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 13,
+				"line" : 14,
 				"parent" : 0
 			}
 		]
@@ -45,8 +44,24 @@
 		}
 	],
 	"id" : "mp_os_assctv_cntnr::@eceec357cdd12af20473",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "../common/libmp_os_cmmn.a",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
 	"name" : "mp_os_assctv_cntnr",
-	"nameOnDisk" : "libmp_os_assctv_cntnr.a",
+	"nameOnDisk" : "libmp_os_assctv_cntnr.dylib",
 	"paths" : 
 	{
 		"build" : "associative_container",
@@ -70,5 +85,5 @@
 			"sourceGroupIndex" : 0
 		}
 	],
-	"type" : "STATIC_LIBRARY"
+	"type" : "SHARED_LIBRARY"
 }

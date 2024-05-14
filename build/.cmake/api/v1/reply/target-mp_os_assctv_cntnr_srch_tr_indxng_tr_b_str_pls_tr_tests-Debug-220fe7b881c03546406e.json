@@ -95,7 +95,7 @@
 			{
 				"command" : 1,
 				"file" : 4,
-				"line" : 21,
+				"line" : 22,
 				"parent" : 13
 			}
 		]
@@ -223,6 +223,10 @@
 				"role" : "flags"
 			},
 			{
+				"fragment" : "-Wl,-rpath,/Users/vioviooo/Desktop/twink/mp_os/build/associative_container/search_tree -Wl,-rpath,/Users/vioviooo/Desktop/twink/mp_os/build/associative_container",
+				"role" : "libraries"
+			},
+			{
 				"backtrace" : 2,
 				"fragment" : "../../../../../lib/libgtest_main.a",
 				"role" : "libraries"
@@ -254,7 +258,7 @@
 			},
 			{
 				"backtrace" : 9,
-				"fragment" : "../../../libmp_os_assctv_cntnr_srch_tr.a",
+				"fragment" : "../../../libmp_os_assctv_cntnr_srch_tr.1.0.dylib",
 				"role" : "libraries"
 			},
 			{
@@ -264,7 +268,7 @@
 			},
 			{
 				"backtrace" : 10,
-				"fragment" : "../../../../libmp_os_assctv_cntnr.a",
+				"fragment" : "../../../../libmp_os_assctv_cntnr.1.0.dylib",
 				"role" : "libraries"
 			},
 			{

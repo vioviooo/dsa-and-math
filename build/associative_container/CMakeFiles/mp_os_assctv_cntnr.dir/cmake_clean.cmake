@@ -1,5 +1,7 @@
 file(REMOVE_RECURSE
-  "libmp_os_assctv_cntnr.a"
+  ".1.0"
+  "libmp_os_assctv_cntnr.1.0.dylib"
+  "libmp_os_assctv_cntnr.dylib"
   "libmp_os_assctv_cntnr.pdb"
 )
 

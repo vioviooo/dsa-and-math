@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "associative_container/search_tree/indexing_tree/b_plus_tree/tests/mp_os_assctv_cntnr_srch_tr_indxng_tr_b_pls_tr_tests"
+			"path" : "associative_container/search_tree/indexing_tree/b_star_tree/tests/mp_os_assctv_cntnr_srch_tr_indxng_tr_b_str_tr_tests"
 		}
 	],
 	"backtrace" : 1,
@@ -15,9 +15,9 @@
 		],
 		"files" : 
 		[
-			"associative_container/search_tree/indexing_tree/b_plus_tree/tests/CMakeLists.txt",
+			"associative_container/search_tree/indexing_tree/b_star_tree/tests/CMakeLists.txt",
 			"build/_deps/googletest-src/googletest/CMakeLists.txt",
-			"associative_container/search_tree/indexing_tree/b_plus_tree/CMakeLists.txt",
+			"associative_container/search_tree/indexing_tree/b_star_tree/CMakeLists.txt",
 			"logger/client_logger/CMakeLists.txt",
 			"associative_container/search_tree/CMakeLists.txt"
 		],
@@ -95,7 +95,7 @@
 			{
 				"command" : 1,
 				"file" : 4,
-				"line" : 21,
+				"line" : 22,
 				"parent" : 13
 			}
 		]
@@ -129,7 +129,7 @@
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/search_tree/indexing_tree/b_plus_tree/./include"
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/search_tree/indexing_tree/b_star_tree/./include"
 				},
 				{
 					"backtrace" : 5,
@@ -194,7 +194,7 @@
 		},
 		{
 			"backtrace" : 5,
-			"id" : "mp_os_assctv_cntnr_srch_tr_indxng_tr_b_pls_tr::@37203b29b78acabb825a"
+			"id" : "mp_os_assctv_cntnr_srch_tr_indxng_tr_b_str_tr::@86bdff6a2fd330c1c30d"
 		},
 		{
 			"backtrace" : 4,
@@ -209,7 +209,7 @@
 			"id" : "mp_os_lggr_lggr::@af94273c3084cfb43adb"
 		}
 	],
-	"id" : "mp_os_assctv_cntnr_srch_tr_indxng_tr_b_pls_tr_tests::@e98adc0a5d61ec1dd919",
+	"id" : "mp_os_assctv_cntnr_srch_tr_indxng_tr_b_str_tr_tests::@0428454ba17f77e6c65e",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -221,6 +221,10 @@
 			{
 				"fragment" : "",
 				"role" : "flags"
+			},
+			{
+				"fragment" : "-Wl,-rpath,/Users/vioviooo/Desktop/twink/mp_os/build/associative_container/search_tree -Wl,-rpath,/Users/vioviooo/Desktop/twink/mp_os/build/associative_container",
+				"role" : "libraries"
 			},
 			{
 				"backtrace" : 2,
@@ -239,7 +243,7 @@
 			},
 			{
 				"backtrace" : 5,
-				"fragment" : "../libmp_os_assctv_cntnr_srch_tr_indxng_tr_b_pls_tr.a",
+				"fragment" : "../libmp_os_assctv_cntnr_srch_tr_indxng_tr_b_str_tr.a",
 				"role" : "libraries"
 			},
 			{
@@ -254,7 +258,7 @@
 			},
 			{
 				"backtrace" : 9,
-				"fragment" : "../../../libmp_os_assctv_cntnr_srch_tr.a",
+				"fragment" : "../../../libmp_os_assctv_cntnr_srch_tr.1.0.dylib",
 				"role" : "libraries"
 			},
 			{
@@ -264,7 +268,7 @@
 			},
 			{
 				"backtrace" : 10,
-				"fragment" : "../../../../libmp_os_assctv_cntnr.a",
+				"fragment" : "../../../../libmp_os_assctv_cntnr.1.0.dylib",
 				"role" : "libraries"
 			},
 			{
@@ -280,12 +284,12 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "mp_os_assctv_cntnr_srch_tr_indxng_tr_b_pls_tr_tests",
-	"nameOnDisk" : "mp_os_assctv_cntnr_srch_tr_indxng_tr_b_pls_tr_tests",
+	"name" : "mp_os_assctv_cntnr_srch_tr_indxng_tr_b_str_tr_tests",
+	"nameOnDisk" : "mp_os_assctv_cntnr_srch_tr_indxng_tr_b_str_tr_tests",
 	"paths" : 
 	{
-		"build" : "associative_container/search_tree/indexing_tree/b_plus_tree/tests",
-		"source" : "associative_container/search_tree/indexing_tree/b_plus_tree/tests"
+		"build" : "associative_container/search_tree/indexing_tree/b_star_tree/tests",
+		"source" : "associative_container/search_tree/indexing_tree/b_star_tree/tests"
 	},
 	"sourceGroups" : 
 	[
@@ -302,7 +306,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "associative_container/search_tree/indexing_tree/b_plus_tree/tests/b_plus_tree_tests.cpp",
+			"path" : "associative_container/search_tree/indexing_tree/b_star_tree/tests/b_star_tree_tests.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

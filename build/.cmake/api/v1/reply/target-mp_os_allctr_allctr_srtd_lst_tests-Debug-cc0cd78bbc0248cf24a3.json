@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "associative_container/search_tree/binary_search_tree/tests/mp_os_assctv_cntnr_srch_tr_bnr_srch_tr_tests"
+			"path" : "allocator/allocator_sorted_list/tests/mp_os_allctr_allctr_srtd_lst_tests"
 		}
 	],
 	"backtrace" : 1,
@@ -15,10 +15,9 @@
 		],
 		"files" : 
 		[
-			"associative_container/search_tree/binary_search_tree/tests/CMakeLists.txt",
+			"allocator/allocator_sorted_list/tests/CMakeLists.txt",
 			"build/_deps/googletest-src/googletest/CMakeLists.txt",
-			"logger/client_logger/CMakeLists.txt",
-			"associative_container/search_tree/CMakeLists.txt"
+			"logger/client_logger/CMakeLists.txt"
 		],
 		"nodes" : 
 		[
@@ -62,19 +61,13 @@
 				"parent" : 0
 			},
 			{
-				"command" : 1,
-				"file" : 0,
-				"line" : 38,
-				"parent" : 0
-			},
-			{
 				"file" : 1
 			},
 			{
 				"command" : 1,
 				"file" : 1,
 				"line" : 161,
-				"parent" : 8
+				"parent" : 7
 			},
 			{
 				"file" : 2
@@ -82,17 +75,8 @@
 			{
 				"command" : 1,
 				"file" : 2,
-				"line" : 17,
-				"parent" : 10
-			},
-			{
-				"file" : 3
-			},
-			{
-				"command" : 1,
-				"file" : 3,
 				"line" : 21,
-				"parent" : 12
+				"parent" : 9
 			}
 		]
 	},
@@ -102,14 +86,14 @@
 			"compileCommandFragments" : 
 			[
 				{
-					"fragment" : "-g -std=c++14 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk"
+					"fragment" : "-g -std=c++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.2.sdk"
 				}
 			],
 			"includes" : 
 			[
 				{
 					"backtrace" : 3,
-					"path" : "/Users/vioviooo/Desktop/twink/mp_os/logger/logger/./include"
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/common/./include"
 				},
 				{
 					"backtrace" : 4,
@@ -117,7 +101,7 @@
 				},
 				{
 					"backtrace" : 4,
-					"path" : "/Users/vioviooo/Desktop/twink/mp_os/common/./include"
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/logger/logger/./include"
 				},
 				{
 					"backtrace" : 4,
@@ -125,19 +109,11 @@
 				},
 				{
 					"backtrace" : 5,
-					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/./include"
-				},
-				{
-					"backtrace" : 6,
-					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/search_tree/./include"
-				},
-				{
-					"backtrace" : 6,
 					"path" : "/Users/vioviooo/Desktop/twink/mp_os/allocator/allocator/./include"
 				},
 				{
-					"backtrace" : 7,
-					"path" : "/Users/vioviooo/Desktop/twink/mp_os/associative_container/search_tree/binary_search_tree/./include"
+					"backtrace" : 6,
+					"path" : "/Users/vioviooo/Desktop/twink/mp_os/allocator/allocator_sorted_list/./include"
 				},
 				{
 					"backtrace" : 2,
@@ -158,7 +134,7 @@
 					2,
 					4
 				],
-				"standard" : "14"
+				"standard" : "17"
 			},
 			"sourceIndexes" : 
 			[
@@ -169,7 +145,7 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 6,
+			"backtrace" : 5,
 			"id" : "mp_os_allctr_allctr::@67a2d12acd41ed6b0bc3"
 		},
 		{
@@ -181,19 +157,11 @@
 			"id" : "gtest_main::@1ea2dfc0605fe3ab2a3f"
 		},
 		{
-			"backtrace" : 5,
-			"id" : "mp_os_assctv_cntnr::@eceec357cdd12af20473"
-		},
-		{
 			"backtrace" : 6,
-			"id" : "mp_os_assctv_cntnr_srch_tr::@32bbdc00ff9a6995c868"
+			"id" : "mp_os_allctr_allctr_srtd_lst::@4702340b8f18f13d4df3"
 		},
 		{
-			"backtrace" : 7,
-			"id" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr::@af874379a609ad2410a4"
-		},
-		{
-			"backtrace" : 4,
+			"backtrace" : 3,
 			"id" : "mp_os_cmmn::@bfc844598bd03e848b3c"
 		},
 		{
@@ -201,11 +169,11 @@
 			"id" : "mp_os_lggr_clnt_lggr::@1192419ba09c9016d213"
 		},
 		{
-			"backtrace" : 3,
+			"backtrace" : 4,
 			"id" : "mp_os_lggr_lggr::@af94273c3084cfb43adb"
 		}
 	],
-	"id" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr_tests::@7d553e8554ea19fdd2a5",
+	"id" : "mp_os_allctr_allctr_srtd_lst_tests::@9768f5af66b947045b7a",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -220,73 +188,58 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "../../../../lib/libgtest_main.a",
+				"fragment" : "../../../lib/libgtest_main.a",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "../../../../logger/logger/libmp_os_lggr_lggr.a",
+				"fragment" : "../../../common/libmp_os_cmmn.a",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 4,
-				"fragment" : "../../../../logger/client_logger/libmp_os_lggr_clnt_lggr.a",
+				"fragment" : "../../../logger/client_logger/libmp_os_lggr_clnt_lggr.a",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 5,
-				"fragment" : "../../../libmp_os_assctv_cntnr.a",
+				"fragment" : "../../allocator/libmp_os_allctr_allctr.a",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 6,
-				"fragment" : "../../libmp_os_assctv_cntnr_srch_tr.a",
+				"fragment" : "../libmp_os_allctr_allctr_srtd_lst.a",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 7,
-				"fragment" : "../libmp_os_assctv_cntnr_srch_tr_bnr_srch_tr.a",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 9,
-				"fragment" : "../../../../lib/libgtest.a",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 6,
-				"fragment" : "../../libmp_os_assctv_cntnr_srch_tr.a",
+				"backtrace" : 8,
+				"fragment" : "../../../lib/libgtest.a",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 3,
-				"fragment" : "../../../../logger/logger/libmp_os_lggr_lggr.a",
+				"fragment" : "../../../common/libmp_os_cmmn.a",
 				"role" : "libraries"
 			},
 			{
 				"backtrace" : 5,
-				"fragment" : "../../../libmp_os_assctv_cntnr.a",
+				"fragment" : "../../allocator/libmp_os_allctr_allctr.a",
 				"role" : "libraries"
 			},
 			{
-				"backtrace" : 11,
-				"fragment" : "../../../../common/libmp_os_cmmn.a",
-				"role" : "libraries"
-			},
-			{
-				"backtrace" : 13,
-				"fragment" : "../../../../allocator/allocator/libmp_os_allctr_allctr.a",
+				"backtrace" : 10,
+				"fragment" : "../../../logger/logger/libmp_os_lggr_lggr.a",
 				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr_tests",
-	"nameOnDisk" : "mp_os_assctv_cntnr_srch_tr_bnr_srch_tr_tests",
+	"name" : "mp_os_allctr_allctr_srtd_lst_tests",
+	"nameOnDisk" : "mp_os_allctr_allctr_srtd_lst_tests",
 	"paths" : 
 	{
-		"build" : "associative_container/search_tree/binary_search_tree/tests",
-		"source" : "associative_container/search_tree/binary_search_tree/tests"
+		"build" : "allocator/allocator_sorted_list/tests",
+		"source" : "allocator/allocator_sorted_list/tests"
 	},
 	"sourceGroups" : 
 	[
@@ -303,7 +256,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "associative_container/search_tree/binary_search_tree/tests/binary_search_tree_tests.cpp",
+			"path" : "allocator/allocator_sorted_list/tests/allocator_sorted_list_tests.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

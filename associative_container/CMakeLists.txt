@@ -5,6 +5,7 @@ add_subdirectory(hash_table)
 add_subdirectory(search_tree)
 add_library(
         mp_os_assctv_cntnr
+        SHARED
         include/associative_container.h)
 target_include_directories(
         mp_os_assctv_cntnr

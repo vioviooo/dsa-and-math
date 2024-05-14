@@ -99,7 +99,7 @@ associative_container/hash_table/tests/mp_os_assctv_cntnr_hsh_tbl_tests-1.0: ass
 associative_container/hash_table/tests/mp_os_assctv_cntnr_hsh_tbl_tests-1.0: lib/libgtest.a
 associative_container/hash_table/tests/mp_os_assctv_cntnr_hsh_tbl_tests-1.0: logger/logger/libmp_os_lggr_lggr.a
 associative_container/hash_table/tests/mp_os_assctv_cntnr_hsh_tbl_tests-1.0: allocator/allocator/libmp_os_allctr_allctr.a
-associative_container/hash_table/tests/mp_os_assctv_cntnr_hsh_tbl_tests-1.0: associative_container/libmp_os_assctv_cntnr.a
+associative_container/hash_table/tests/mp_os_assctv_cntnr_hsh_tbl_tests-1.0: associative_container/libmp_os_assctv_cntnr.1.0.dylib
 associative_container/hash_table/tests/mp_os_assctv_cntnr_hsh_tbl_tests-1.0: common/libmp_os_cmmn.a
 associative_container/hash_table/tests/mp_os_assctv_cntnr_hsh_tbl_tests-1.0: associative_container/hash_table/tests/CMakeFiles/mp_os_assctv_cntnr_hsh_tbl_tests.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/vioviooo/Desktop/twink/mp_os/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable mp_os_assctv_cntnr_hsh_tbl_tests"

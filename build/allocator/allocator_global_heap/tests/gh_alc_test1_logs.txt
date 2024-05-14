@@ -1,0 +1,2 @@
+27.04.2024 - 12:04:33 - [DEBUG] - Global heap allocator: Memory dump: 00 
+27.04.2024 - 12:04:33 - [DEBUG] - Global heap allocator: Memory dump: 00 
