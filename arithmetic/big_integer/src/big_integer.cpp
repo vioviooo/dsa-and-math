@@ -77,15 +77,45 @@ void big_integer::initialize_from(
 
     for (auto i = 0; i < digits_count - 1; ++i)
     {
-        _other_digits[1 + i] = *reinterpret_cast<unsigned int const *>(&digits[i]);
+        _other_digits[i + 1] = *reinterpret_cast<unsigned int const *>(&digits[i]);
     }
 }
 
-void big_integer::initialize_from(
+void big_integer::initialize_from( // !!!
     std::string const &value,
     size_t base)
 {
+    if (base < 2 || base > 36)
+    {
+        throw std::logic_error("base must be in range [2..36]");
+    }
 
+    if (value.empty())
+    {
+        throw std::logic_error("value must not be empty");
+    }
+
+    _other_digits = nullptr;
+
+    _oldest_digit = value[value.size() - 1];
+
+    if (value.size() == 1)
+    {
+        return;
+    }
+
+    _other_digits = new unsigned int[value.size()];
+    *_other_digits = value.size();
+   
+    for (auto i = 0; i < value.size() - 1; ++i)
+    {
+       _other_digits[i + 1] = value[i] - '0';
+    }
+
+    // for (auto i = 0; i < value.size(); ++i)
+    // {
+    //     std::cout << _other_digits[i] << std::endl;
+    // }
 }
 
 void big_integer::print_byte(
@@ -172,9 +202,19 @@ big_integer::big_integer(
 
 big_integer::big_integer(
     std::vector<int> const &digits)
-{
-    // TODO: remove additional zeros
-    initialize_from(digits, digits.size());
+{   
+    if (digits.size() == 1) {
+        initialize_from(digits, digits.size());
+    } else {
+        auto it = digits.begin();
+        while (it != digits.end() && *it == 0) {
+            ++it;
+        }
+
+        std::vector<int> cleaned_digits(it, digits.end());
+
+        initialize_from(cleaned_digits, cleaned_digits.size());
+    }
 }
 
 big_integer::big_integer(
@@ -182,6 +222,10 @@ big_integer::big_integer(
     size_t base)
 {
     initialize_from(value, base);
+}
+big_integer::big_integer(std::string const &value) 
+{
+    initialize_from(value, 10);
 }
 
 big_integer::big_integer(
@@ -289,7 +333,7 @@ big_integer big_integer::operator+(
 big_integer &big_integer::operator-=(
     big_integer const &other)
 {
-	
+    return *this -= other;
 }
 
 big_integer big_integer::operator-(
@@ -306,7 +350,7 @@ big_integer big_integer::operator-() const
 big_integer &big_integer::operator*=(
     big_integer const &other)
 {
-	
+    return *this *= other;
 }
 
 big_integer big_integer::operator*(
@@ -318,7 +362,7 @@ big_integer big_integer::operator*(
 big_integer &big_integer::operator/=(
     big_integer const &other)
 {
-    
+    return *this /= other;
 }
 
 big_integer big_integer::operator/(
@@ -330,7 +374,7 @@ big_integer big_integer::operator/(
 big_integer &big_integer::operator%=(
     big_integer const &other)
 {
-    
+    return *this %= other;
 }
 
 big_integer big_integer::operator%(
@@ -342,78 +386,104 @@ big_integer big_integer::operator%(
 bool big_integer::operator==(
     big_integer const &other) const
 {
-	
+    if (get_digits_count() != other.get_digits_count())
+    {
+        return false;
+    }
+
+    if (sign() != other.sign())
+    {
+        return false;
+    }
+
+    if (_oldest_digit != other._oldest_digit) 
+    {
+        return false;
+    }
+
+    for (int i = 0; i < get_digits_count(); ++i) {
+        if (get_digit(i) != other.get_digit(i)) {
+            return false;
+        }
+    }
+    return true;
 }
 
 bool big_integer::operator!=(
     big_integer const &other) const
 {
-	
+	return !(*this == other);
 }
 
 bool big_integer::operator<(
     big_integer const &other) const
 {
-	
+	return (*this < other);
 }
 
 bool big_integer::operator<=(
     big_integer const &other) const
 {
-	
+	return (*this <= other);
 }
 
 bool big_integer::operator>(
     big_integer const &other) const
 {
-	
+	return (*this > other);
 }
 
 bool big_integer::operator>=(
     big_integer const &other) const
 {
-	
+	return (*this >= other);
 }
 
 big_integer big_integer::operator~() const
 {
-    
+    big_integer result(*this);
+    result._oldest_digit = ~result._oldest_digit;
+    for (int i = 0; i < result.get_digits_count(); ++i)
+    {
+        result._other_digits[i] = ~result._other_digits[i];
+    }
+    return result;
 }
 
 big_integer &big_integer::operator&=(
     big_integer const &other)
 {
-
+    return *this &= other;
 }
 
 big_integer big_integer::operator&(
     big_integer const &other) const
 {
-	
+	return big_integer(*this) &= other;
 }
 
 big_integer &big_integer::operator|=(
     big_integer const &other)
 {
-	
+	return *this |= other;
 }
 
 big_integer big_integer::operator|(
     big_integer const &other) const
 {
-	
+	return big_integer(*this) |= other;
 }
 
-big_integer &big_integer::operator^=(
+big_integer &big_integer::operator^=( // ?? 
     big_integer const &other)
 {
-
+    return *this ^= other;
 }
 
-big_integer big_integer::operator^(
+big_integer big_integer::operator^( // ??
     big_integer const &other) const
 {
-	
+	return big_integer(*this) ^= other;
 }
 
 big_integer &big_integer::operator<<=(
@@ -519,25 +589,57 @@ big_integer big_integer::operator<<(
 big_integer &big_integer::operator>>=(
     size_t shift_value)
 {
-
+    return *this >>= shift_value;
 }
 
 big_integer big_integer::operator>>(
     size_t shift_value) const
 {
-	
+	return big_integer(*this) >>= shift_value;
 }
 
+std::string digit_to_string(unsigned int digit) {
+    if (digit == 0) {
+        return "0";
+    }
+
+    std::string result;
+    while (digit > 0) {
+        result.push_back('0' + digit % 10);
+        digit /= 10;
+    }
+
+    std::reverse(result.begin(), result.end());
+    return result;
+}
+
+// TODO:
 std::ostream &operator<<(
     std::ostream &stream,
     big_integer const &value)
 {
-    
+    if (value.is_equal_to_zero()) {
+        return stream << '0';
+    }
+
+    if (value.sign() == -1) {
+        stream << '-';
+    }
+
+    stream << value._oldest_digit;
+
+    for (auto i = 0; i < *(value._other_digits) - 1; ++i) {
+        stream << value._other_digits[i];
+    }
+
+    return stream;
 }
 
-std::istream &operator>>(
+// TODO::
+std::istream &operator>>( // !!!
     std::istream &stream,
     big_integer &value)
 {
-    
+
+    return stream;
 }

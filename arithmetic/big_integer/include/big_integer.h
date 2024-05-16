@@ -1,7 +1,7 @@
 #ifndef PROGRAMMING_LANGUAGES_AND_METHODS_BIG_INTEGER_H
 #define PROGRAMMING_LANGUAGES_AND_METHODS_BIG_INTEGER_H
 
-#include <corecrt.h>
+// #include <corecrt.h>
 #include <string>
 #include <vector>
 #include <iostream>
@@ -51,7 +51,7 @@ public:
         }
     }
 
-private:
+private: // !!!!!!!!!!!!!!!!!!!!
 
     int _oldest_digit;
     unsigned int *_other_digits;
@@ -63,6 +63,8 @@ private:
 public:
 
     inline int get_digits_count() const noexcept;
+
+    std::string digit_to_string(unsigned int digit);
 
     inline int sign() const noexcept;
 
@@ -83,6 +85,10 @@ public:
     big_integer(
         std::string const &value,
         size_t base);
+
+    big_integer( // base is automatically 10
+        std::string const &value
+    );
 
 public:
 
