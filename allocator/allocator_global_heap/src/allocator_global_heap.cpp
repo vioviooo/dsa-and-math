@@ -10,9 +10,8 @@
 
 #include <cmath>
 
-allocator_global_heap::allocator_global_heap(logger* logger)
+allocator_global_heap::allocator_global_heap(logger* logger) : _logger(logger)
 {
-    _logger = logger;
     information_with_guard("Global heap allocator: Constructor called.");
 }
 
@@ -21,9 +20,8 @@ allocator_global_heap::~allocator_global_heap()
     information_with_guard("Global heap allocator: Destructor called. Bye-bye...");
 }
 
-allocator_global_heap::allocator_global_heap(allocator_global_heap &&other) noexcept
+allocator_global_heap::allocator_global_heap(allocator_global_heap &&other) noexcept : _logger(other._logger)
 {
-    _logger = other._logger;
     information_with_guard("Global heap allocator move constructor called");
 }
 
@@ -39,7 +37,8 @@ allocator_global_heap &allocator_global_heap::operator=(allocator_global_heap &&
     size_t value_size,
     size_t values_count)
 {
-    const std::size_t result_size = value_size*  values_count + meta;
+    const std::size_t meta = sizeof(size_t) + sizeof(allocator*);
+    const std::size_t result_size = value_size * values_count + meta;
 
     information_with_guard("Global heap allocator: Trying to allocate " + std::to_string(result_size) + " bytes...");
 
@@ -49,25 +48,25 @@ allocator_global_heap &allocator_global_heap::operator=(allocator_global_heap &&
         ptr = ::operator new(result_size);
     } catch (const std::bad_alloc& e) {
         error_with_guard("Global heap allocator: Failed to allocate " + std::to_string(result_size) + " bytes");
-        throw e;
+        throw;
 
         return nullptr;
     }
 
     std::size_t* size_ptr = reinterpret_cast<std::size_t*>(ptr);
-   * size_ptr = result_size - meta; //*  remaining memory size* 
+    *size_ptr = result_size - meta; //*  remaining memory size* 
 
     information_with_guard("Global heap allocator: Allocated " + std::to_string(result_size) + " bytes successfully");
 
-    
-    void* next_ptr = reinterpret_cast<void*>(static_cast<char*>(ptr) + sizeof(std::size_t));
+    void** alloc_ptr = reinterpret_cast<void**>(static_cast<char*>(ptr) + sizeof(std::size_t));
+    *(alloc_ptr) = this;
 
-    debug_with_guard("Global heap allocator: Memory dump: " + get_mem_dump(next_ptr));
-    // std::cout << "MEMORY DUMP: " << get_mem_dump(next_ptr) << std::endl;
+    void* user_ptr = reinterpret_cast<void*>(reinterpret_cast<char*>(ptr) + meta);
 
-    allocated_blocks.insert(next_ptr);
+    debug_with_guard("Global heap allocator: Memory dump: " + get_mem_dump(user_ptr));
+    // std::cout << "MEMORY DUMP: " << get_mem_dump(user_ptr) << std::endl;
 
-    return next_ptr;
+    return user_ptr;
 }
 
 void allocator_global_heap::deallocate( // * DEALLOCATE
@@ -75,22 +74,22 @@ void allocator_global_heap::deallocate( // * DEALLOCATE
 {
     if (at == nullptr) {
         error_with_guard("Global heap allocator: nullptr pointer passed to deallocate()");
-        throw std::invalid_argument("nullptr pointer passed to deallocate()"); // ! 
+        std::invalid_argument("nullptr pointer passed to deallocate()"); 
         return;
     }
 
     information_with_guard("Global heap allocator: Trying to deallocate " + std::to_string(get_block_size(at)) + " bytes...");
     debug_with_guard("Global heap allocator: Memory dump: " + get_mem_dump(at));
     
-    // std::cout << "MEMORY DUMP: " << get_mem_dump(at) << std::endl;
+    void** alloc_obj = reinterpret_cast<void**>(static_cast<char*>(at) - sizeof(allocator*));
 
-    if (!allocated_blocks.count(at)) {
+    if (*alloc_obj != this) {
         error_with_guard("Global heap allocator: Trying to deallocate memory allocated BY OTHER ALLOCATOR");
         std::logic_error("Trying to deallocate memory allocated BY OTHER ALLOCATOR");
         return;
     }
     
-    ::operator delete(reinterpret_cast<std::size_t*>(static_cast<char*>(at) - sizeof(std::size_t)));
+    ::operator delete(reinterpret_cast<void*>(static_cast<char*>(at) - sizeof(std::size_t) - sizeof(allocator*)));
 }
 
 inline logger* allocator_global_heap::get_logger() const

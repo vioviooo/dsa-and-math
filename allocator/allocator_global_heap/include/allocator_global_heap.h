@@ -18,9 +18,7 @@ class allocator_global_heap final:
 {
 
 private:
-    logger *_logger;
-    static const size_t meta = sizeof(size_t);
-    std::unordered_set <void*> allocated_blocks;
+    logger* _logger;
 
 public:
     
