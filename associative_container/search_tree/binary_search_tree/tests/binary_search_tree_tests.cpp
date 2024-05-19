@@ -156,16 +156,16 @@ bool postfix_iterator_test(
 
 TEST(binarySearchTreePositiveTests, test1)
 {
-    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
-        {
-            {
-                "binary_search_tree_tests_logs.txt",
-                logger::severity::trace
-            }
-        });
-    logger->trace("binarySearchTreePositiveTests.test1 started");
+    // logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+    //     {
+    //         {
+    //             "binary_search_tree_tests_logs.txt",
+    //             logger::severity::trace
+    //         }
+    //     });
+    // logger->trace("binarySearchTreePositiveTests.test1 started");
     
-    search_tree<int, std::string> *bst = new binary_search_tree<int, std::string>(key_comparer(), nullptr, logger);
+    search_tree<int, std::string> *bst = new binary_search_tree<int, std::string>(key_comparer(), nullptr, nullptr);
     
     bst->insert(5, "a");
     bst->insert(2, "b");
@@ -186,10 +186,10 @@ TEST(binarySearchTreePositiveTests, test1)
     
     EXPECT_TRUE(infix_iterator_test(*reinterpret_cast<binary_search_tree<int, std::string> const *>(bst), expected_result));
     
-    logger->trace("binarySearchTreePositiveTests.test1 finished");
+    // logger->trace("binarySearchTreePositiveTests.test1 finished");
     
-    delete bst;
-    delete logger;
+    // delete bst;
+    // delete logger;
 }
 
 TEST(binarySearchTreePositiveTests, test2)
@@ -617,21 +617,20 @@ int main(
     int argc,
     char **argv)
 {
-    binary_search_tree<int, std::string> tree([](int const &left, int const &right) { return left - right; });
+    // binary_search_tree<int, std::string> tree([](int const &left, int const &right) { return left - right; });
 
-    std::string str = "123456";
-    std::string str2 = "1234";
+    // std::string str = "123456";
+    // std::string str2 = "1234";
 
-    tree.insert(10, std::move(str));
-    tree.insert(11, str2);
-    tree.insert(12, str2);
-    tree.insert(9, str2);
-    tree.insert(-3,str2);
-    int x = 10;
+    // tree.insert(10, std::move(str));
+    // tree.insert(11, str2);
+    // tree.insert(12, str2);
+    // tree.insert(9, str2);
+    // tree.insert(-3,str2);
+    // int x = 10;
 
-    //testing::InitGoogleTest(&argc, argv);
+    testing::InitGoogleTest(&argc, argv);
     
-    //return RUN_ALL_TESTS();
+    return RUN_ALL_TESTS();
 
-    return 0;
 }
