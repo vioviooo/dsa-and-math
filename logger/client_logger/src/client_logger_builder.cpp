@@ -9,8 +9,8 @@ client_logger_builder::client_logger_builder() {
     _format = "%d - %t - [%s] - %m"; // default format
 }
 
-client_logger_builder::client_logger_builder(std::string const& format_string) {
-    _format = format_string;
+client_logger_builder::client_logger_builder(std::string const& format_string) : _format(format_string) {
+    // _format = format_string; //!!!
 }
 
 
