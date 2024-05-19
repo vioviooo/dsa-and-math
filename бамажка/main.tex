@@ -2,6 +2,7 @@
 \usepackage{iftex}
 \iftutex
 \usepackage{fontspec}
+\usepackage{amsmath}
 \defaultfontfeatures{Ligatures={TeX}}
 \setmainfont{Noto Serif}
 \setsansfont{Noto Sans}
@@ -366,6 +367,48 @@ i: n
 Ответ: $a_n=n \cdot (log_4(n)+1)$.
 \end{flushleft}
 
+\section{№14 Найти асимптотическое решение рекуррентного соотношения}
+
+\begin{flushleft}
+    Решим воспользовавшись Мастер-теоремой. Мастер-теорема нужна для решения рекуррентных соотношений типа $T(n)=aT(\frac{n}{b}) + f(n)$, где $a \geq 1, b > 1$ константы, а $f(n)$ - асимптотически положительная функция. Всего есть три случая:
+\end{flushleft}
+
+\begin{align}
+    & 1. \quad f(n) = O(n^{c}), c < log_b(a) \Rightarrow T(n) = \Theta(n^{log_b(a)}) \\&
+    2. \quad f(n) = \Theta(n^{log_b(a)}), \Rightarrow T(n) = \Theta(n^{log_b(a)} \cdot log(n)) \\&
+    3. \quad f(n) = \Omega(n^{c}), \quad c>log_b(a), \quad a \cdot f \left( \frac{n}{b} \right) \leq k \cdot f(n), \quad k < 1 \Rightarrow T(n) = \Theta(f(n))
+\end{align}
+
+\begin{flushleft}
+    Рассмотрим первый кейс: $2^x=O(x^c)$ для некоторой константы $c<log_\beta(\alpha)$. Нам нужно проверить растет ли функция $2^x$ медленнее, чем $x^{log_\beta(\alpha)}$. Но так как по условию $x \leq 1$, то не найдутся такие значения $\alpha$ и $\beta$, при которых $2^x$ растет медленнее. Таким образом, данный случай нам не подходит.
+\end{flushleft}
+
+\begin{flushleft}
+    Рассмотрим второй кейс: $2^x=\Theta(x^{log_\beta(\alpha)})$ для некоторой константы $c<log_\beta(\alpha)$. Как было отмечено ранее, $2^x$ растет экспоненциально, а $log_\beta(\alpha)$ полиномиалоьлно. Таким образом, данный случай нам не подходит.
+\end{flushleft}
+
+\begin{flushleft}
+    Рассмотрим третий кейс: $2^x=\Omega(x^c)$ для некоторой константы $c>log_\beta(\alpha)$. Поскольку можно найти коэффициенты $2^x$ растет экспоненциально, а $log_\beta(\alpha)$ полиномиалоьлно. Таким образом, данный случай нам подходит. Проверим выполнение условие:
+\end{flushleft}
+
+\begin{align}
+    & \alpha \cdot f \big(\frac{x}{\beta} \big) \leq k \cdot f(x), \quad k < 1. \\&
+    f(x)=0 \Rightarrow \alpha \cdot 0 \leq k \cdot 0 \Leftrightarrow 0 \leq 0
+    % \alpha \cdot f \big(\frac{n}{\beta} \big) = \alpha \cdot 2^{\frac{x}{\beta}} \\&
+    % \beta \cdot f(n) = k \cdot 2^x \\&
+    % \alpha \cdot 2^{\frac{x}{\beta}} \leq k \cdot 2^x | \cdot \frac{1}{2^x} \\&
+    % \alpha \cdot 2^{\frac{x}{\beta}-x} \leq k \\&
+    % \alpha \cdot 2^{x(\frac{1}{\beta}-1)} \leq k
+\end{align}
+
+\begin{flushleft}
+    Условие выполняется. Таким образом $T(n)=\Theta(2^x)$. Также проверим: $2^x \geq 0, x \leq 1$ - верно.
+\end{flushleft}
+
+\begin{flushleft}
+Ответ: при $\alpha \geq 1, \beta > 1: T(n)=\Theta(2^x)$.
+\end{flushleft}
+
 \section{№17 Найти производящую функцию последовательности и решение рекуррентного соотношения}
 
 \begin{align}
@@ -373,7 +416,7 @@ i: n
 \end{align}
 
 \begin{flushleft}
-22222Перейдем к решению:
+Перейдем к решению:
 
 \begin{align}
     & 1 \cdot a_0 = 1 \cdot 0 \\&
