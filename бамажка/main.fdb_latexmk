@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber main"] 0 "main.bcf" "main.bbl" "main" 1716143818.97828 0
+["biber main"] 0 "main.bcf" "main.bbl" "main" 1716240336.97629 0
   "Bibliography.bib" 0 -1 0 ""
   "main.bcf" 0 -1 0 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1716143814.78643 "/Users/vioviooo/Desktop/twink/mp_os/бамажка/main.tex" "main.pdf" "main" 1716143818.97868 2
-  "/Users/vioviooo/Desktop/twink/mp_os/бамажка/main.tex" 1716143810.11421 26440 fb820b29b6f215b0f9874be656e43ac9 ""
+["pdflatex"] 1716240332.74953 "/Users/vioviooo/Desktop/twink/mp_os/бамажка/main.tex" "main.pdf" "main" 1716240336.97665 2
+  "/Users/vioviooo/Desktop/twink/mp_os/бамажка/main.tex" 1716240327.87433 27912 c6ef1b1f715c32ee42e42bf5c6c743a5 ""
   "/Users/vioviooo/Library/texlive/2024/texmf-var/fonts/tfm/lh/lh-t2a/larm1200.tfm" 1715339308.91174 3240 c2435f2b5cd66d4930bc29b8df87967e ""
   "/Users/vioviooo/Library/texlive/2024/texmf-var/fonts/tfm/lh/lh-t2a/lasl1200.tfm" 1715339348.76565 3472 6d14f8899639fa703bd66d6b31a67f8b ""
   "/Users/vioviooo/Library/texlive/2024/texmf-var/fonts/tfm/lh/lh-t2a/lass1200.tfm" 1715339324.45377 3328 2be4722f1b98ee4842bc3d7c90c43abf ""
@@ -311,10 +311,10 @@
   "/usr/local/texlive/2024/texmf.cnf" 1710266656 577 e590dabc9e28c5b61546e15f63eebcdf ""
   "Eingaben_Benutzer.tex" 1715699676.58615 40 ce9a5a5cf3da73929762e46cd8668676 ""
   "Einstellungen.tex" 1716142595.94495 1446 25c3173d033eca9e723098650afca0fd ""
-  "main.aux" 1716143818.74948 13861 ee03a649e206b9ad40f3066eb7704b79 "pdflatex"
+  "main.aux" 1716240336.72971 15215 7058d6fe248ae7a88b46d75ead25812d "pdflatex"
   "main.bbl" 0 -1 0 "biber main"
-  "main.out" 1716143816.64961 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.tex" 1716143810.11421 26440 fb820b29b6f215b0f9874be656e43ac9 ""
+  "main.out" 1716240334.5978 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.tex" 1716240327.87433 27912 c6ef1b1f715c32ee42e42bf5c6c743a5 ""
   (generated)
   "main.aux"
   "main.bcf"
