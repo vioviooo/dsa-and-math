@@ -631,20 +631,27 @@ TEST(bTreePositiveTests, test9)
 
     search_tree<int, std::string> *tree = new b_tree<int, std::string>(5, keys_comparer, nullptr, logger);
 
-    tree->insert(1, std::string("a"));
-    tree->insert(2, std::string("b"));
+    tree->insert(1, std::string("a")); // !
+    tree->insert(2, std::string("b")); // !
     tree->insert(15, std::string("c"));
-    tree->insert(3, std::string("d"));
-    tree->insert(4, std::string("e"));
+    tree->insert(3, std::string("d")); //!
+    tree->insert(4, std::string("e")); 
     tree->insert(100, std::string("f"));
     tree->insert(24, std::string("g"));
-    tree->insert(456, std::string("h"));
+    tree->insert(456, std::string("h")); //!
     tree->insert(101, std::string("j"));
     tree->insert(45, std::string("k"));
-    tree->insert(193, std::string("l"));
-    tree->insert(534, std::string("m"));
+    tree->insert(193, std::string("l")); //!
+    tree->insert(534, std::string("m")); //!
 
     std::vector<typename associative_container<int, std::string>::key_value_pair> actual_result = tree->obtain_between(4, 101, true, true);
+
+    std::cout << actual_result.size() << std::endl;
+
+    for (int i = 0; i < actual_result.size(); i++)
+    {
+        std::cout << actual_result[i].key << " " << actual_result[i].value << std::endl;
+    }
 
     EXPECT_TRUE(compare_obtain_results(expected_result, actual_result, values_comparer));
 

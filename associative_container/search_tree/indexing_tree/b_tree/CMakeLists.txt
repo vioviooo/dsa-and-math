@@ -4,6 +4,7 @@ project(mp_os_assctv_cntnr_srch_tr_indxng_tr_b_tr)
 add_subdirectory(tests)
 add_library(
         mp_os_assctv_cntnr_srch_tr_indxng_tr_b_tr
+        SHARED
         include/b_tree.h)
 target_include_directories(
         mp_os_assctv_cntnr_srch_tr_indxng_tr_b_tr
@@ -28,7 +29,7 @@ target_link_libraries(
 set_target_properties(
         mp_os_assctv_cntnr_srch_tr_indxng_tr_b_tr PROPERTIES
         LANGUAGES CXX
-        CXX_STANDARD 14
+        CXX_STANDARD 17
         CXX_STANDARD_REQUIRED ON
         CXX_EXTENSIONS OFF
         VERSION 1.0
