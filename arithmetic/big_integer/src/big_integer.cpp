@@ -1019,77 +1019,13 @@ std::string digit_to_string(uint digit) {
     return result;
 }
 
-// TODO:
 std::ostream &operator<<(
     std::ostream &stream,
     big_integer const &value)
 {
-    // std::cout << string_mult("10", "11");
-    // !  do subtraction case 
-    // big_integer biggie(value);
     std::string res = value.bigint_to_string(value);
     stream << res;
-    // std::string res = "0";
-
-    // if (value.is_equal_to_zero()) {
-    //     return stream << res;
-    // }
-
-    // if (value.sign() == -1) {
-    //     stream << '-';
-    // }
-
-    // std::cout << "oldest digit " << value._oldest_digit << '\n';
-    // std::cout << "size of other digits " << *(value._other_digits) << '\n';
-
-    // if (value._other_digits == nullptr) {
-    //     stream << std::to_string(value._oldest_digit);
-    //     return stream;
-    // }
-
-    // if (*(value._other_digits) == 1) {
-    //     stream << std::to_string(value._oldest_digit); 
-    //     return stream;
-    // }
-
-    // int size = *(value._other_digits);
-    // // std::cout << "HERERRRRRRR " << value._other_digits[0] << ' ' << value._other_digits[1] << ' ' << value._other_digits[2] << '\n';
-    // std::cout << "values of other digits ";
-    // const std::string power = BASE_32; // * 2^(32)
-    // uint i = 1;
-    // for (; i < size; ++i) {
-    //     res = string_add(res, string_mult(std::to_string(value._other_digits[i]), string_pow(power, i - 1)));
-    //     std::cout << value._other_digits[i] << ' ';
-    //     // std::cout << "res : " << res << '\n';
-    // }
-
-    // std::cout << std::endl;
-
-    // bool flag = false;
-
-    // if (value.sign() == -1) {
-    //     flag = true;
-    //     std::string mystr = std::to_string(value._oldest_digit);
-    //             std::cout << "LORD HAVE MERCY" << mystr << '\n';
-
-    //     mystr = mystr.substr(1);
-    //     std::cout << "LORD HAVE MERCY" << mystr << '\n';
-    //     std::cout << "LORD HAVE MERCY" << string_mult(mystr, string_pow(power, i - 1));
-    //     res = string_add(res, string_mult(mystr, string_pow(power, i - 1)));
-    // } else {
-    //     res = string_add(res, string_mult(std::to_string(value._oldest_digit), string_pow(power, i - 1)));
-    // }
-
-    // std::cout << "res : " << std::to_string(value._oldest_digit) << '\n';
-
-    // // -730742496758226200897648703415174244990423581454
-    // // 
-
-
-    // stream << res;
-
-    // stream << value._oldest_digit;
-
+    
     return stream;
 }
 
@@ -1101,8 +1037,3 @@ std::istream &operator>>( // !!!
 
     return stream;
 }
-
-// std::string big_integer::uint_to_string(uint k) const 
-// {
-
-// }
