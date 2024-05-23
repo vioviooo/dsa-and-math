@@ -27,211 +27,221 @@ logger *create_logger(
     
     return built_logger;
 }
-// ? why 
-TEST(positive_tests, test1) // TODO : 8 + 3 etc new digit addition; it reads from right to left
+TEST(positive_tests, test1)
 {
-//    std::vector <int> vec("{1, 2}");
-//    std::vector <int> v({2, 1});
-    big_integer bigint_1("2");
-    std::cout << bigint_1.get_digits_count() << std::endl;
-    big_integer bigint_2("3");
-    std::cout << bigint_2.get_digits_count() << std::endl;
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+        {
+            {
+                "bigint_logs.txt",
+                logger::severity::information
+            },
+        });
+    
+    big_integer bigint_1("32850346459076457453464575686784654");
+
+    big_integer bigint_2("423534596495087569087908753095322");
+
     big_integer result_of_sum = bigint_1 + bigint_2;
 
-    std::cout << "HERE" <<  result_of_sum.get_digits_count() << std::endl;
-    
     std::stringstream ss;
+
     ss << result_of_sum;
+
     std::string result_string = ss.str();
+
+
+    EXPECT_TRUE(result_string == "33273881055571545022552484439879976");
     
-    // std::cout << "JJJJJJ" << result_string << std::endl;
-    
-    // EXPECT_TRUE(result_string == "5");
-    EXPECT_TRUE("5" == "5");
+    delete logger;
 }
 
-// TEST(positive_tests, test1)
-// {
-//     logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
-//         {
-//             {
-//                 "bigint_logs.txt",
-//                 logger::severity::information
-//             },
-//         });
+TEST(positive_tests, test2)
+{
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+        {
+            {
+                "bigint_logs.txt",
+                logger::severity::information
+            },
+        });
     
-//     big_integer bigint_1("32850346459076457453464575686784654");
+    big_integer bigint_1("32850346459076457453464575686784654");
+    big_integer bigint_2("0000042353459649508756908790875309532245366457546765745645647567575");
+    
+    big_integer result_of_sub = bigint_1 - bigint_2;
+    
+    std::stringstream ss;
+    ss << result_of_sub;
+    std::string result_string = ss.str();
 
-//     big_integer bigint_2("423534596495087569087908753095322");
+    std::cout << result_string << '\n';
+    
+    EXPECT_TRUE(result_string == "-42353459649508756908790875276681898907381089312281069960782921");
+    
+    delete logger;
+}
 
-//     big_integer result_of_sum = bigint_1 + bigint_2;
+TEST(positive_tests, test3)
+{
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+        {
+            {
+                "bigint_logs.txt",
+                logger::severity::information
+            },
+        });
 
-//     std::stringstream ss;
+    big_integer bigint_1("32850346459076457453464575686784654");
+    big_integer bigint_2("12342357553253");
 
-//     ss << result_of_sum;
+    big_integer result_of_remainder = bigint_1 % bigint_2;
 
-//     std::string result_string = ss.str();
+    std::stringstream ss;
+    ss << result_of_remainder;
+    std::string result_string = ss.str();
 
-//     EXPECT_TRUE(result_string == "33273881055571545022552484439879976");
-    
-//     delete logger;
-// }
+    EXPECT_TRUE(result_string == "3232571319826");
 
-// TEST(positive_tests, test2)
-// {
-//     logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
-//         {
-//             {
-//                 "bigint_logs.txt",
-//                 logger::severity::information
-//             },
-//         });
-    
-//     big_integer bigint_1("32850346459076457453464575686784654");
-//     big_integer bigint_2("0000042353459649508756908790875309532245366457546765745645647567575");
-    
-//     big_integer result_of_sub = bigint_1 - bigint_2;
-    
-//     std::stringstream ss;
-//     ss << result_of_sub;
-//     std::string result_string = ss.str();
-    
-//     EXPECT_TRUE(result_string == "-42353459649508756908790875276681898907381089312281069960782921");
-    
-//     delete logger;
-// }
+    delete logger;
+}
 
-// TEST(positive_tests, test3)
-// {
-//     logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
-//         {
-//             {
-//                 "bigint_logs.txt",
-//                 logger::severity::information
-//             },
-//         });
+TEST(positive_tests, test4)
+{
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+        {
+            {
+                "bigint_logs.txt",
+                logger::severity::information
+            },
+        });
+    
+    big_integer bigint_1("-54357893745346457544353");
+    big_integer bigint_2("-54357893745346457544354");
+    
+    EXPECT_TRUE(bigint_1 > bigint_2);
+    
+    delete logger;
+}
 
-//     big_integer bigint_1("32850346459076457453464575686784654");
-//     big_integer bigint_2("12342357553253");
+TEST(positive_tests, test5)
+{
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+        {
+            {
+                "bigint_logs.txt",
+                logger::severity::information
+            },
+        });
+    
+    big_integer bigint_1("423895435432");
+    big_integer bigint_2("423895435432");
+    
+    EXPECT_TRUE(bigint_1 >= bigint_2);
+    
+    delete logger;
+}
 
-//     big_integer result_of_remainder = bigint_1 % bigint_2;
+TEST(positive_tests, test6)
+{
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+        {
+            {
+                "bigint_logs.txt",
+                logger::severity::information
+            },
+        });
+    
+    big_integer bigint_1("-423895435432312432534645756753");
+    big_integer bigint_2("0");
+    
+    EXPECT_TRUE(bigint_1 < bigint_2);
+    
+    delete logger;
+}
 
-//     std::stringstream ss;
-//     ss << result_of_remainder;
-//     std::string result_string = ss.str();
+TEST(positive_tests, test7)
+{
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+        {
+            {
+                "bigint_logs.txt",
+                logger::severity::information
+            },
+        });
+    
+    big_integer bigint_1("4238954354324222200000000");
+    big_integer bigint_2("4238954354324222222222234");
+    
+    EXPECT_TRUE(bigint_1 <= bigint_2);
+    
+    delete logger;
+}
 
-//     EXPECT_TRUE(result_string == "3232571319826");
+TEST(positive_tests, test8)
+{
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+        {
+            {
+                "bigint_logs.txt",
+                logger::severity::information
+            },
+        });
+    
+    big_integer bigint_1("4238954354321");
+    big_integer bigint_2("423895435432");
+    
+    EXPECT_TRUE(bigint_1 != bigint_2);
+    
+    delete logger;
+}
 
-//     delete logger;
-// }
+TEST(positive_tests, test9)
+{
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+        {
+            {
+                "bigint_logs.txt",
+                logger::severity::information
+            },
+        });
+    
+    big_integer bigint_1("-00000044234235347865897389456748953795739648996453238954354321");
+    big_integer bigint_2("-00000044234235347865897389456748953795739648996453238954354321");
+    
+    EXPECT_TRUE(bigint_1 == bigint_2);
+    
+    delete logger;
+}
 
-// TEST(positive_tests, test4)
-// {
-//     logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
-//         {
-//             {
-//                 "bigint_logs.txt",
-//                 logger::severity::information
-//             },
-//         });
-    
-//     big_integer bigint_1("-54357893745346457544353");
-//     big_integer bigint_2("-54357893745346457544354");
-    
-//     EXPECT_TRUE(bigint_1 > bigint_2);
-    
-//     delete logger;
-// }
+TEST(womp_womp, MY_TEST_1) {
+    big_integer biggie1("101000000000010110000111101101100000000000000000000000000000000", 2);
+    // * 5765385818352910336
 
-// TEST(positive_tests, test5)
-// {
-//     logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
-//         {
-//             {
-//                 "bigint_logs.txt",
-//                 logger::severity::information
-//             },
-//         });
-    
-//     big_integer bigint_1("423895435432");
-//     big_integer bigint_2("423895435432");
-    
-//     EXPECT_TRUE(bigint_1 >= bigint_2);
-    
-//     delete logger;
-// }
+    big_integer biggie2("1E089541B5", 16); // * 128993018293
 
-// TEST(positive_tests, test6)
-// {
-//     logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
-//         {
-//             {
-//                 "bigint_logs.txt",
-//                 logger::severity::information
-//             },
-//         });
-    
-//     big_integer bigint_1("-423895435432312432534645756753");
-//     big_integer bigint_2("0");
-    
-//     EXPECT_TRUE(bigint_1 < bigint_2);
-    
-//     delete logger;
-// }
+    big_integer res = biggie1 + biggie2;
 
-// TEST(positive_tests, test7)
-// {
-//     logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
-//         {
-//             {
-//                 "bigint_logs.txt",
-//                 logger::severity::information
-//             },
-//         });
-    
-//     big_integer bigint_1("4238954354324222200000000");
-//     big_integer bigint_2("4238954354324222222222234");
-    
-//     EXPECT_TRUE(bigint_1 <= bigint_2);
-    
-//     delete logger;
-// }
+    std::stringstream ss;
+    ss << res;
+    std::string result_string = ss.str();
 
-// TEST(positive_tests, test8)
-// {
-//     logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
-//         {
-//             {
-//                 "bigint_logs.txt",
-//                 logger::severity::information
-//             },
-//         });
-    
-//     big_integer bigint_1("4238954354321");
-//     big_integer bigint_2("423895435432");
-    
-//     EXPECT_TRUE(bigint_1 != bigint_2);
-    
-//     delete logger;
-// }
+    // 5765385818352910336 + 128993018293
 
-// TEST(positive_tests, test9)
-// {
-//     logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
-//         {
-//             {
-//                 "bigint_logs.txt",
-//                 logger::severity::information
-//             },
-//         });
-    
-//     big_integer bigint_1("-00000044234235347865897389456748953795739648996453238954354321");
-//     big_integer bigint_2("-00000044234235347865897389456748953795739648996453238954354321");
-    
-//     EXPECT_TRUE(bigint_1 == bigint_2);
-    
-//     delete logger;
-// }
+    EXPECT_TRUE(result_string == "5765385947345928629");
+}
+
+TEST(i_spit_like_this_but_look_like_that_to_some_of_yall_it_must_be_a_complicated_complexion, MY_TEST_2) {
+    big_integer biggie1("10001001010000100010010010010000000111111100", 2);
+    big_integer biggie2("10001001010000100010010010010000000111111100", 2);
+
+    big_integer res = biggie1 - biggie2;
+
+    std::stringstream ss;
+    ss << res;
+    std::string result_string = ss.str();
+
+    EXPECT_TRUE(result_string == "0");
+}
 
 int main(
     int argc,
@@ -240,7 +250,4 @@ int main(
     testing::InitGoogleTest(&argc, argv);
     
     return RUN_ALL_TESTS();
-
-    // std::vector<int>vec({0,0,2,2});
-    // big_integer bigint(vec);
 }

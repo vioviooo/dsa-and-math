@@ -51,10 +51,10 @@ public:
         }
     }
 
-private:
+public: // !!!!!!!!!!!!!!!!!!!!
 
     int _oldest_digit;
-    uint *_other_digits;
+    unsigned int *_other_digits;
 
 private:
 
@@ -64,13 +64,13 @@ public:
 
     inline int get_digits_count() const noexcept;
 
-    std::string digit_to_string(uint digit);
+    std::string digit_to_string(unsigned int digit);
 
     inline int sign() const noexcept;
 
     inline bool is_equal_to_zero() const noexcept;
 
-    inline uint get_digit(
+    inline unsigned int get_digit(
         int position) const noexcept;
 
     std::string bigint_to_string(big_integer const value) const;
@@ -92,7 +92,7 @@ public:
         std::string const &value
     );
 
-    big_integer(uint k);
+    big_integer(unsigned int coeff);
 
 public:
 
