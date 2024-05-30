@@ -243,6 +243,22 @@ TEST(i_spit_like_this_but_look_like_that_to_some_of_yall_it_must_be_a_complicate
     EXPECT_TRUE(result_string == "0");
 }
 
+TEST(a, MY_TEST_3) {
+    big_integer biggie1("0");
+    big_integer biggie2("100");
+
+    big_integer res = biggie1 - biggie2;
+
+    std::stringstream ss;
+    ss << res;
+    std::string result_string = ss.str();
+
+    std::cout << result_string << std::endl;
+ 
+    EXPECT_TRUE(result_string == "-100");
+}
+
+
 int main(
     int argc,
     char **argv)

@@ -239,9 +239,12 @@ std::string big_integer::bigint_to_string(big_integer const value) const {
         return res;
     }
 
-    if (value._other_digits == nullptr) {
+    if (value._other_digits == nullptr) { // FIXME: 
         if (value.sign() == -1) {
-            return "-" + std::to_string(value._oldest_digit);
+            big_integer b(value);
+            b.change_sign();
+            std::string res = bigint_to_string(b);
+            return "-" + res;
         } else {
             return std::to_string(value._oldest_digit);
         }
@@ -249,7 +252,10 @@ std::string big_integer::bigint_to_string(big_integer const value) const {
 
     if (*(value._other_digits) == 1) {
         if (value.sign() == -1) {
-            return "-" + std::to_string(value._oldest_digit);
+            big_integer b(value);
+            b.change_sign();
+            std::string res = bigint_to_string(b);
+            return "-" + res;
         } else {
             return std::to_string(value._oldest_digit);
         }
@@ -640,7 +646,7 @@ big_integer big_integer::operator+(
     return big_integer(*this) += other;
 }
 
-big_integer &big_integer::operator-=( // TODO: implement
+big_integer &big_integer::operator-=( 
     big_integer const &other)
 {
     if (other.is_equal_to_zero()) {
@@ -648,7 +654,13 @@ big_integer &big_integer::operator-=( // TODO: implement
     }
 
     if (is_equal_to_zero()) {
-        return *this = other;
+        clear();
+        // std::cout << bigint_to_string(other) << std::endl;
+        copy_from(other);
+        // std::cout << bigint_to_string(*this) << std::endl;
+        change_sign();
+        // std::cout << bigint_to_string(*this) << std::endl;
+        return *this;
     }
 
     if (*this == other) { // * case a - a = 0
@@ -747,8 +759,6 @@ big_integer &big_integer::operator-=( // TODO: implement
         old_dig1 -= old_dig2;
     }
 
-    // ?? clear 0 ????
-
     clear();
 
     _other_digits = nullptr;
@@ -775,10 +785,103 @@ big_integer big_integer::operator-() const
     return big_integer(*this).change_sign();
 }
 
-big_integer &big_integer::operator*=(
+big_integer& big_integer::operator*=(
     big_integer const &other)
+{   
+    // * case 0 * a = 0
+    if (other.is_equal_to_zero()) {
+        return *this = other;
+    }
+
+    // * case a * 0 = 0
+    if (is_equal_to_zero()) {
+        return *this;
+    }
+
+    bool is_negative = false;
+
+    if (sign() == -1 and other.sign() == -1) {
+        change_sign();
+
+        *this *= -other;
+
+        return *this;
+    }
+
+    // * case -a * b = -(a * b)
+    if (sign() == -1) {
+        change_sign();
+
+        *this *= other;
+
+        return *this;
+    }
+
+    // * case a * -b = -(a * b)
+    if (other.sign() == -1) {
+        *this *= -other;
+
+        change_sign();
+
+        return *this;
+    }
+
+    int sze1 = get_digits_count(), sze2 = other.get_digits_count();
+
+    // std::cout << "sizeof(uint): " << sizeof(uint) << std::endl;
+
+    int shift = sizeof(uint) << 2; //* (4 * 2^2) = 16
+    int mask = (1 << shift) - 1; //* (1 * 2^shift - 1)//* 1111 1111 1111 1111
+    
+
+    big_integer res("0");
+    big_integer mult("0");
+
+    for (int i = 0; i < sze1; i++) {
+        uint quo_A = get_digit(i) >> shift; // * quotient
+        uint rem_A = get_digit(i) & mask; // * remainder
+
+        for (int j = 0; j < sze2; j++) {
+            uint quo_B = other.get_digit(j) >> shift;
+            uint rem_B = other.get_digit(j) & mask;
+
+            mult = std::move(big_integer(std::to_string(rem_A * rem_B)));
+            mult <<= ((sizeof(uint) << 2) * ((i + j) << 1)); // * (4 * 2^2) * 2 * (i + j)
+            res += mult; // * addition in bigints
+
+            mult = std::move(big_integer(std::to_string(quo_A * quo_B)));
+            mult <<= ((sizeof(uint) << 2) * (((i + j) << 1) + 2));
+            res += mult;
+
+            mult = std::move(big_integer(std::to_string(rem_A * quo_B)));
+            mult <<= ((sizeof(uint) << 2) * (((i + j) << 1) + 1));
+            res += mult;
+
+            mult = std::move(big_integer(std::to_string(quo_A * rem_B)));
+            mult <<= ((sizeof(uint) << 2) * (((i + j) << 1) + 1));
+            res += mult;
+        }
+    }
+
+    clear();
+    
+    *this = res;
+
+    return *this;
+}
+
+big_integer& big_integer::multiply(
+    big_integer &first_multiplier,
+    big_integer const &second_multiplier,
+    allocator *allocator,
+    big_integer::multiplication_rule multiplication_rule)
 {
-    return *this *= other;
+    if (!allocator) {
+        if (multiplication_rule == big_integer::multiplication_rule::trivial) {
+            first_multiplier *= second_multiplier;
+        }
+    }
+    return *this;
 }
 
 big_integer big_integer::operator*(
@@ -786,6 +889,7 @@ big_integer big_integer::operator*(
 {
     return big_integer(*this) *= other;
 }
+
 
 big_integer &big_integer::operator/=(
     big_integer const &other)
@@ -867,13 +971,33 @@ big_integer big_integer::operator~() const
     return result;
 }
 
-big_integer &big_integer::operator&=( // ?? 
+big_integer& big_integer::operator&=(
     big_integer const &other)
 {
-    return *this &= other;
+    size_t sze = std::max(this->get_digits_count(), other.get_digits_count());
+
+    big_integer b("0");
+
+    b.copy_from(*this);
+
+    std::vector <int> v(sze, 0);
+
+    for (int i = 0; i < sze; ++i) {
+        auto d = b.get_digit(i);
+        d &= other.get_digit(i);
+        v[i] = d;
+    }
+
+    big_integer bb(v);
+
+    clear();
+
+    copy_from(bb);
+
+    return *this;
 }
 
-big_integer big_integer::operator&( // ?? 
+big_integer big_integer::operator&(
     big_integer const &other) const
 {
 	return big_integer(*this) &= other;
@@ -882,22 +1006,62 @@ big_integer big_integer::operator&( // ??
 big_integer &big_integer::operator|=( // ??
     big_integer const &other)
 {
-	return *this |= other;
+	size_t sze = std::max(this->get_digits_count(), other.get_digits_count());
+
+    big_integer b("0");
+
+    b.copy_from(*this);
+
+    std::vector <int> v(sze, 0);
+
+    for (int i = 0; i < sze; ++i) {
+        auto d = b.get_digit(i);
+        d |= other.get_digit(i);
+        v[i] = d;
+    }
+
+    big_integer bb(v);
+
+    clear();
+
+    copy_from(bb);
+
+    return *this;
 }
 
-big_integer big_integer::operator|( // ?? 
+big_integer big_integer::operator|( 
     big_integer const &other) const
 {
 	return big_integer(*this) |= other;
 }
 
-big_integer &big_integer::operator^=( // ?? 
+big_integer &big_integer::operator^=( 
     big_integer const &other)
 {
-    return *this ^= other;
+    size_t sze = std::max(this->get_digits_count(), other.get_digits_count());
+
+    big_integer b("0");
+
+    b.copy_from(*this);
+
+    std::vector <int> v(sze, 0);
+
+    for (int i = 0; i < sze; ++i) {
+        auto d = b.get_digit(i);
+        d ^= other.get_digit(i);
+        v[i] = d;
+    }
+
+    big_integer bb(v);
+
+    clear();
+
+    copy_from(bb);
+
+    return *this;
 }
 
-big_integer big_integer::operator^( // ??
+big_integer big_integer::operator^( 
     big_integer const &other) const
 {
 	return big_integer(*this) ^= other;
@@ -995,7 +1159,57 @@ big_integer big_integer::operator<<(
 big_integer &big_integer::operator>>=(
     size_t shift_value)
 {
-    return *this >>= shift_value;
+    if (is_equal_to_zero() and shift_value == 0) {
+        return *this;
+    }
+
+    auto value_sign = sign();
+    if (value_sign == -1) {
+        change_sign();
+    }
+
+    auto const removed_by_shift_at_other_digits_digits_count = shift_value / (sizeof(uint) << 3);
+    shift_value %= (sizeof(uint) << 3);
+
+    if (removed_by_shift_at_other_digits_digits_count > 0) {
+        if (_other_digits == nullptr and removed_by_shift_at_other_digits_digits_count >= *_other_digits) {
+            clear();
+            return *this;
+        } else {
+            uint* new_digits = new uint[*_other_digits - removed_by_shift_at_other_digits_digits_count];
+            std::memcpy(new_digits + 1, _other_digits + 1 + removed_by_shift_at_other_digits_digits_count,
+                        sizeof(uint) * (*_other_digits - removed_by_shift_at_other_digits_digits_count - 1));
+            *new_digits = *_other_digits - removed_by_shift_at_other_digits_digits_count;
+
+            clear();
+            _other_digits = new_digits;
+        }
+    }
+
+    if (shift_value != 0) {
+        auto const digits_count = get_digits_count();
+        uint part_to_move_from_next_digit = 0;
+        for (int i = digits_count - 1; i >= 0; --i) {
+            auto *digit_address = i == digits_count - 1
+                ? reinterpret_cast<uint *>(&_oldest_digit)
+                : _other_digits + 1 + i;
+            uint digit_value = *digit_address;
+            *digit_address >>= shift_value;
+            *digit_address |= part_to_move_from_next_digit;
+            part_to_move_from_next_digit = digit_value << ((sizeof(uint) << 3) - shift_value);
+        }
+    }
+
+    if (_other_digits != nullptr and _other_digits[1] == 0) {
+        delete[] _other_digits;
+        _other_digits = nullptr;
+    }
+
+    if (value_sign == -1) {
+        change_sign();
+    }
+
+    return *this;
 }
 
 big_integer big_integer::operator>>(
@@ -1029,11 +1243,14 @@ std::ostream &operator<<(
     return stream;
 }
 
-// TODO::
-std::istream &operator>>( // !!!
-    std::istream &stream,
+std::istream &operator>>(
+    std::istream &stream, 
     big_integer &value)
 {
+    std::string input;
+    stream >> input;
+
+    value.initialize_from(input, 10);
 
     return stream;
 }

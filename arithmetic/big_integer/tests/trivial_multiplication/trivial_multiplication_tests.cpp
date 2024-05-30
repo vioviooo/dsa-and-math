@@ -30,6 +30,88 @@ logger *create_logger(
     return built_logger;
 }
 
+TEST(myyyyy, test1)
+{
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+                                       {
+                                           {
+                                               "bigint_logs.txt",
+                                               logger::severity::information
+                                           },
+                                       });
+
+    big_integer bigint_1("123");
+    big_integer bigint_2("456");
+    
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
+    std::cout << (std::ostringstream() << bigint_1).str() << std::endl;
+    EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "56088");
+
+    delete logger;
+}
+
+TEST(miomio, test2)
+{
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+                                       {
+                                           {
+                                               "bigint_logs.txt",
+                                               logger::severity::information
+                                           },
+                                       });
+
+    big_integer bigint_1("123");
+    big_integer bigint_2("456");
+    
+    bigint_1 &= bigint_2;
+    
+    std::cout << (std::ostringstream() << bigint_1).str() << std::endl;
+    EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "72");
+
+    delete logger;
+}
+
+TEST(miomio, test3)
+{
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+                                       {
+                                           {
+                                               "bigint_logs.txt",
+                                               logger::severity::information
+                                           },
+                                       });
+
+    big_integer bigint_1("222");
+    big_integer bigint_2("3312321");
+    
+    bigint_1 &= bigint_2;
+    
+    std::cout << (std::ostringstream() << bigint_1).str() << std::endl;
+    EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "192");
+
+    delete logger;
+}
+
+TEST(miomio, test4)
+{
+    logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
+                                       {
+                                           {
+                                               "bigint_logs.txt",
+                                               logger::severity::information
+                                           },
+                                       });
+
+    big_integer bigint_1("3312321");
+    
+    bigint_1 >>= 22;
+    
+    std::cout << (std::ostringstream() << bigint_1).str() << std::endl;
+    EXPECT_TRUE((std::ostringstream() << bigint_1).str() == std::to_string(3312321 >> 22));
+
+    delete logger;
+}
+
 TEST(positive_tests, test1)
 {
     logger *logger = create_logger(std::vector<std::pair<std::string, logger::severity>>
@@ -42,8 +124,9 @@ TEST(positive_tests, test1)
 
     big_integer bigint_1("2423545763");
     big_integer bigint_2("3657687978");
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
-
+    
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
+    std::cout << (std::ostringstream() << bigint_1).str() << std::endl;
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "8864574201457937214");
 
     delete logger;
@@ -61,7 +144,7 @@ TEST(positive_tests, test2)
 
     big_integer bigint_1("20944325634363");
     big_integer bigint_2("0");
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "0");
 
@@ -80,7 +163,7 @@ TEST(positive_tests, test3)
 
     big_integer bigint_1("001123");
     big_integer bigint_2("-0000001");
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "-1123");
 
@@ -99,7 +182,7 @@ TEST(positive_tests, test4)
 
     big_integer bigint_1("-28958888309635818");
     big_integer bigint_2("-234567");
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "6792799554126344920806");
 
@@ -121,7 +204,7 @@ TEST(positive_tests, test5)
     big_integer bigint_1("0");
     big_integer bigint_2("0");
     iss >> bigint_1 >> bigint_2;
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "42118517249079582762848120969952324453639154832768688602860605975");
 
@@ -140,7 +223,7 @@ TEST(positive_tests, test6)
 
     big_integer bigint_1("123424353464389587244387927589346894576464343235445645674563532464675467425");
     big_integer bigint_2("2354893245937465784937542389428935349086840957804985309763636567574564");
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "290651176357489495451049958587923972328418314663424320128873904703658883667429195585130334492391519870913575716570325570910803505581125240577700");
 
@@ -159,7 +242,8 @@ TEST(positive_tests, test7)
 
     big_integer bigint_1("999999999999999999999999999977777");
     big_integer bigint_2("-0000000000000000000000000000000000000000000000000059");
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
+    
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "-58999999999999999999999999998688843");
 
