@@ -7,10 +7,10 @@
 #include <bitset>
 
 #define pss std::pair<std::string, std::string> 
-#define BASE_32 "4294967296" // * 2^32
+#define BASE_32 "4294967296" // * 2^32 
+#define all(x) (x).begin(), (x).end()
 
 int string_cmp(const std::string& num1, const std::string& num2) {
-
     bool is_negative1 = (num1[0] == '-');
     bool is_negative2 = (num2[0] == '-');
 
@@ -35,6 +35,7 @@ int string_cmp(const std::string& num1, const std::string& num2) {
 
     return cmp_res;
 }
+
 std::string string_add(std::string const &a, std::string const &b) 
 {
     std::string result;
@@ -49,7 +50,7 @@ std::string string_add(std::string const &a, std::string const &b)
         result.push_back(sum % 10 + '0');
     }
 
-    std::reverse(result.begin(), result.end());
+    std::reverse(all(result));
 
     return result;
 }
@@ -172,7 +173,7 @@ std::string string_subtract(const std::string &num1, const std::string &num2) {
         result.pop_back();
     }
 
-    std::reverse(result.begin(), result.end());
+    std::reverse(all(result));
     return result;
 }
 
@@ -202,7 +203,7 @@ pss string_divide(const std::string &num1, const std::string &num2) {
         }
 
         int quotient = 0;
-        while (curr.size() > divisor.size() || 
+        while (curr.size() > divisor.size() or 
               (curr.size() == divisor.size() and curr >= divisor)) {
             curr = string_subtract(curr, divisor);
             quotient++;
@@ -239,7 +240,7 @@ std::string big_integer::bigint_to_string(big_integer const value) const {
         return res;
     }
 
-    if (value._other_digits == nullptr) { // FIXME: 
+    if (value._other_digits == nullptr) { 
         if (value.sign() == -1) {
             big_integer b(value);
             b.change_sign();
@@ -325,6 +326,30 @@ void big_integer::initialize_from(
     *_other_digits = (uint)digits_count;
 
     std::memcpy(_other_digits + 1, digits, sizeof(uint) * (digits_count - 1));
+}
+
+void big_integer::initialize_from(
+    std::vector<uint> const &digits,
+    size_t digits_count)
+{
+    _other_digits = nullptr;
+
+    if (digits.empty() or digits_count == 0) {
+        throw std::logic_error("std::vector<int> of digits should not be empty" + std::to_string(digits_count));
+    }
+
+    _oldest_digit = digits[digits_count - 1];
+
+    if (digits_count == 1) {
+        return;
+    }
+
+    _other_digits = new uint[digits_count];
+    *_other_digits = digits_count;
+
+    for (auto i = 0; i < digits_count - 1; ++i) {
+        _other_digits[i + 1] = digits[i];
+    }
 }
 
 void big_integer::initialize_from(
@@ -498,20 +523,53 @@ big_integer::big_integer(
     initialize_from(digits, digits_count);
 }
 
-big_integer::big_integer( // !!!! FIXME: from right to left
-    std::vector<int> const &digits)
-{   
-    if (digits.size() == 1) {
-        initialize_from(digits, digits.size());
-    } else {
-        auto it = digits.begin();
-        while (it != digits.end() and *it == 0) {
-            ++it;
+big_integer::big_integer(std::vector<int> const &digits) {
+    size_t digits_count = digits.size();
+    _other_digits = nullptr;
+
+    if (digits.empty() or digits_count == 0) {
+        throw std::logic_error("std::vector<int> of digits should not be empty");
+    }
+
+    _oldest_digit = digits[digits_count - 1];
+
+    if (digits_count == 1) {
+        return;
+    }
+
+    _other_digits = new uint[digits_count];
+    *_other_digits = digits_count;
+
+    for (auto i = 0; i < digits_count - 1; ++i) {
+        _other_digits[1 + i] = *reinterpret_cast<unsigned int const *>(&digits[i]);
+    }
+}
+
+big_integer::big_integer(std::vector<uint> const &digits) {   
+    int digits_count = digits.size();
+    _oldest_digit = 0;
+
+    _other_digits = nullptr;
+
+    if (digits_count == 0) {
+        throw std::logic_error("std::vector<int> of digits should not be empty!");
+    }
+
+    if (digits[digits_count - 1] < INT32_MAX) {
+        _oldest_digit = digits[digits_count - 1];
+        _other_digits = new unsigned int[digits_count];
+        *_other_digits = digits_count;
+
+        for (auto i = 0; i < digits_count; ++i) {
+            _other_digits[1 + i] = *reinterpret_cast<unsigned int const *>(&digits[i]);
         }
+        return;
+    }
+    _other_digits = new unsigned int[digits_count + 1];
+    *_other_digits = digits_count + 1;
 
-        std::vector<int> cleaned_digits(it, digits.end());
-
-        initialize_from(cleaned_digits, cleaned_digits.size());
+    for (auto i = 0; i < digits_count; ++i) {
+        _other_digits[1 + i] = *reinterpret_cast<unsigned int const *>(&digits[i]);
     }
 }
 
@@ -870,6 +928,85 @@ big_integer& big_integer::operator*=(
     return *this;
 }
 
+
+// !!!!!
+// big_integer big_integer::karatsuba(big_integer &first_multiplier, big_integer const &second_multiplier) const {
+
+//     if (first_multiplier.is_equal_to_zero() or second_multiplier.is_equal_to_zero()) {        
+//         big_integer res = big_integer("0");
+//         return res;
+//     }
+    
+//     int sze = std::max(first_multiplier.get_digits_count(), second_multiplier.get_digits_count());
+
+//     if (sze < 10) {
+//         return first_multiplier *= second_multiplier;
+//     }
+
+//     sze = sze / 2 + sze % 2;
+
+//     big_integer multiplier = big_integer(string_pow("10", sze));
+
+//     big_integer b("0");
+//     b = first_multiplier / multiplier;
+
+//     big_integer a("0");
+// 	a = first_multiplier - (b * multiplier);
+	
+//     big_integer d("0");
+//     d = second_multiplier / multiplier;
+
+//     big_integer sze_bi(sze);
+
+//     big_integer c("0");
+// 	c = second_multiplier - (d * sze_bi);
+
+//     big_integer z0("0");
+//     z0 = karatsuba(a, c);
+
+//     big_integer sumres("0");
+//     sumres = a + b;
+
+//     big_integer z1("0");
+//     z1 = karatsuba(sumres, c + d);
+
+//     big_integer z2("0");
+//     z2 = karatsuba(b, d);
+
+//     big_integer mn("0");
+//     std::string powres = string_pow("10", 2 * sze);
+
+//     mn = big_integer(powres);
+
+//     big_integer bb("0");
+//     bb = z0 + (z1 - z0 - z2) * multiplier + z2 * mn;
+
+//     // * z0 + ((z1 - z0 - z2) * multiplier) + (z2 * (long long)(pow(10, 2 * N)));
+
+//     return bb;
+// }   
+
+// trivial_multiplication final:
+//         public multiplication {
+//             public:
+//                 big_integer &multiply(
+//                     big_integer &first_multiplier,
+                    // big_integer const &second_multiplier) const override;  
+
+// big_integer& big_integer::trivial_multiplication::multiply(
+//                     big_integer &first_multiplier,
+//                     big_integer const &second_multiplier) const override 
+// {
+//     return first_multiplier *= second_multiplier;
+// }
+
+// big_integer& big_integer::trivial_multiplication::multiply(
+//     big_integer &first_multiplier,
+//     big_integer const &second_multiplier) const override 
+// {
+//     return first_multiplier *= second_multiplier;
+// }
+
 big_integer& big_integer::multiply(
     big_integer &first_multiplier,
     big_integer const &second_multiplier,
@@ -879,6 +1016,10 @@ big_integer& big_integer::multiply(
     if (!allocator) {
         if (multiplication_rule == big_integer::multiplication_rule::trivial) {
             first_multiplier *= second_multiplier;
+            // first_multiplier = big_integer::trivial_multiplication::multiply(first_multiplier, second_multiplier);
+        } else if (multiplication_rule == big_integer::multiplication_rule::karatsuba) {
+
+            // first_multiplier = karatsuba(first_multiplier, second_multiplier);
         }
     }
     return *this;
@@ -890,11 +1031,252 @@ big_integer big_integer::operator*(
     return big_integer(*this) *= other;
 }
 
+uint find_coefficient(uint left_bound, uint right_bound, big_integer div, const big_integer& x) {
 
-big_integer &big_integer::operator/=(
-    big_integer const &other)
+    double res1 = static_cast<double>(left_bound) / 2;
+    double res2 = static_cast<double>(right_bound) / 2;
+    uint mid = (res1 + res2);
+
+    big_integer res(mid);
+
+    big_integer finall = res * x;
+
+    if (finall == div){
+        return mid;
+    } else if (finall > div) {
+        return find_coefficient(left_bound, mid, div, x);
+    } else {
+        big_integer rem = div - finall;
+        if (rem >= x) return find_coefficient(mid, right_bound, div, x);
+        else {
+            return mid;
+        }
+    }
+}
+
+uint big_integer::get_digit_big_endian(int position) const {
+    if (_other_digits == nullptr) {
+        return position == 0
+            ? _oldest_digit
+            : 0;
+    }
+
+    int const digits_count = get_digits_count();
+
+    if (position == 0) {
+        return _oldest_digit;
+    }
+
+    if (position < digits_count) {
+        return _other_digits[_other_digits[0] - position];
+    }
+
+    return 0;
+}
+
+big_integer &big_integer::operator/=(big_integer const &divisor) {
+    if (divisor.is_equal_to_zero()) {
+        throw std::logic_error("big_integer: division by zero");
+    }
+
+    if (is_equal_to_zero()) {
+        clear();
+        initialize_from("0", 10);
+        return *this;
+    }
+
+    if (*this < divisor and sign() >= 0 and divisor.sign() >= 0) {
+        clear();
+        initialize_from("0", 10);
+        return *this; 
+    }
+
+    if (*this < divisor and sign() < 0 and divisor.sign() < 0) {
+        change_sign();
+
+        big_integer pos_divisor(*this);
+        pos_divisor.clear();
+        pos_divisor.copy_from(divisor);
+        pos_divisor.change_sign();
+        
+        *this /= pos_divisor; 
+        return *this;
+    }
+
+    if (*this < divisor and sign() < 0 and divisor.sign() < 0) {
+        // std::cout << "Im here \n";
+        change_sign();
+
+        big_integer pos_divisor("0");
+        pos_divisor.clear();
+        pos_divisor.copy_from(divisor);
+        pos_divisor.change_sign();
+        // std::cout << bigint_to_string(*this) << '\n';
+        // std::cout << bigint_to_string(pos_divisor) << std::endl;
+
+        return *this /= pos_divisor;
+    }
+
+    if (*this < divisor and sign() < 0 and divisor.sign() >= 0) {
+        change_sign();
+        if (*this > divisor) {
+            clear();
+            initialize_from("0", 10);
+            return *this;
+        }
+    }
+
+    if (sign() < 0 and divisor.sign() < 0) {
+        change_sign();
+        big_integer neg_divisor("0");
+        neg_divisor.clear();
+        neg_divisor.copy_from(divisor);
+        neg_divisor.change_sign();
+
+        *this /= neg_divisor;
+        return *this;
+    }
+
+    if (sign() < 0) {
+        change_sign();
+        *this /= divisor;
+        change_sign();
+        return *this;
+    }
+
+    if (divisor.sign() < 0) {
+        *this /= -divisor;
+        change_sign();
+        return *this;
+    }
+
+    int dividend_length = get_digits_count();
+    int divisor_length = divisor.get_digits_count();
+
+    std::cout << "LOLOLOL " << divisor_length << ' ' << dividend_length << '\n';
+
+    std::vector<uint> intermediate(divisor_length + 1, 0); 
+    std::vector<uint> quotient;
+
+    int index = 0;
+    for (int i = 0; i < divisor_length; i++) {
+        intermediate[i] = get_digit_big_endian(i);
+    }
+
+    index = divisor_length;
+
+    std::vector<uint> temp(intermediate.begin(), intermediate.end() - 1);
+
+    std::cout << "LOLOLOL " << bigint_to_string(*this) << ' ' << bigint_to_string(divisor) << '\n';
+
+    std::reverse(all(temp));
+
+    for (auto elem : temp) {
+        std::cout << elem << ' ';
+    } std::cout << std::endl;
+
+    big_integer current_value(temp);
+    std::reverse(all(temp));
+
+    if (current_value < divisor) {
+        intermediate[index] = get_digit_big_endian(index);
+        index++;
+        std::reverse(intermediate.begin(), intermediate.end());
+        current_value = big_integer(intermediate);
+        std::reverse(intermediate.begin(), intermediate.end());
+    }
+
+    while (index <= dividend_length) {
+        std::cout << "1\n";
+        uint quotient_digit = find_coefficient(0, std::stol(BASE_32) - 1, current_value, divisor);
+        quotient.push_back(quotient_digit);
+
+        big_integer quotient_bi(quotient_digit);
+        current_value -= (quotient_bi * divisor);
+        for (int i = 0; i < current_value.get_digits_count(); i++) {
+            intermediate[i] = current_value.get_digit_big_endian(i);
+        }
+
+        intermediate[current_value.get_digits_count()] = get_digit_big_endian(index);
+        index++;
+
+        std::vector<uint> new_vector(current_value.get_digits_count() + 1);
+        
+        std::copy(intermediate.begin(), intermediate.begin() + current_value.get_digits_count() + 1, new_vector.begin());
+        
+        std::reverse(all(new_vector));
+
+        std::cout << "3 " << new_vector.size() << ' ' << new_vector[0]  << ' ' << new_vector[1]  << ' ' << new_vector[2] << '\n';
+
+        big_integer new_current_value(new_vector);
+
+        std::cout << "LORD HAVE MERCY \n";
+
+        std::reverse(all(new_vector));
+
+        std::cout << "2222\n";
+
+        if (new_current_value < divisor) {
+            if (index > dividend_length - 1) {
+                std::vector<uint> final_result;
+                for (uint digit : quotient) {
+                    new_vector.push_back(digit);
+                }
+                std::reverse(quotient.begin(), quotient.end());
+
+                std::cout <<  "quo size: " << quotient.size() << '\n';
+
+                big_integer aboba(quotient);
+
+                if (aboba * divisor + divisor <= *this) {
+                    std::cout << "4\n";
+                    final_result.push_back(0);
+                    std::reverse(final_result.begin(), final_result.end());
+                    std::cout << "5\n";
+                    *this = big_integer(final_result);
+                    return *this;
+                } else {
+                    std::cout << "6\n";
+                    *this = big_integer(quotient);
+                    return *this;
+                }
+            } else if (index > dividend_length) {
+                std::reverse(quotient.begin(), quotient.end());
+                std::cout << "7\n";
+                *this = big_integer(quotient);
+                return *this;
+            }
+
+            intermediate[current_value.get_digits_count() + 1] = get_digit_big_endian(index);
+            index++;
+            std::reverse(intermediate.begin(), intermediate.end());
+            new_current_value = big_integer(intermediate);
+            std::reverse(intermediate.begin(), intermediate.end());
+        }
+        current_value = new_current_value;
+
+        std::cout << "2\n";
+    }
+
+    std::reverse(quotient.begin(), quotient.end());
+    *this = big_integer(quotient);
+
+    return *this;
+}
+
+big_integer& big_integer::divide(
+    big_integer &dividend,
+    big_integer const &divisor,
+    allocator *allocator,
+    big_integer::division_rule division_rule)
 {
-    return *this /= other;
+    if (allocator == nullptr) {
+        if (division_rule == big_integer::division_rule::trivial) {
+            dividend /= divisor;
+        }
+    }
+
+    return *this;
 }
 
 big_integer big_integer::operator/(
@@ -939,8 +1321,11 @@ bool big_integer::operator!=(
 
 bool big_integer::operator<(
     big_integer const &other) const
-{   
+{       
+    // std::cout << " I COMPARE :: \n";
     return (string_cmp(big_integer::bigint_to_string(*this), big_integer::bigint_to_string(other)) == -1) ? 1 : 0;
+    //     return (string_cmp(big_integer::bigint_to_string(*this), big_integer::bigint_to_string(other)) == -1) ? 1 : 0;
+
 }
 
 bool big_integer::operator<=(
@@ -1229,7 +1614,7 @@ std::string digit_to_string(uint digit) {
         digit /= 10;
     }
 
-    std::reverse(result.begin(), result.end());
+    std::reverse(all(result));
     return result;
 }
 
