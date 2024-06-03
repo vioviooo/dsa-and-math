@@ -1016,10 +1016,9 @@ big_integer& big_integer::multiply(
     if (!allocator) {
         if (multiplication_rule == big_integer::multiplication_rule::trivial) {
             first_multiplier *= second_multiplier;
-            // first_multiplier = big_integer::trivial_multiplication::multiply(first_multiplier, second_multiplier);
         } else if (multiplication_rule == big_integer::multiplication_rule::karatsuba) {
-
-            // first_multiplier = karatsuba(first_multiplier, second_multiplier);
+            std::cout << "HAVE YOUR KARATSUBA~" << std::endl;
+            first_multiplier = karatsuba(first_multiplier, second_multiplier);
         }
     }
     return *this;
@@ -1073,6 +1072,64 @@ uint big_integer::get_digit_big_endian(int position) const {
 
     return 0;
 }
+
+// !!!!!
+
+big_integer big_integer::karatsuba(big_integer &first_multiplier, big_integer const &second_multiplier) const {
+
+    if (first_multiplier.is_equal_to_zero() or second_multiplier.is_equal_to_zero()) {        
+        big_integer res = big_integer("0");
+        return res;
+    }
+    
+    int sze = std::max(first_multiplier.get_digits_count(), second_multiplier.get_digits_count());
+
+    if (sze < 10) {
+        return first_multiplier *= second_multiplier;
+    }
+
+    sze = sze / 2 + sze % 2;
+
+    big_integer multiplier = big_integer(string_pow("10", sze));
+
+    big_integer b("0");
+    b = first_multiplier / multiplier;
+
+    big_integer a("0");
+	a = first_multiplier - (b * multiplier);
+	
+    big_integer d("0");
+    d = second_multiplier / multiplier;
+
+    big_integer sze_bi(sze);
+
+    big_integer c("0");
+	c = second_multiplier - (d * sze_bi);
+
+    big_integer z0("0");
+    z0 = karatsuba(a, c);
+
+    big_integer sumres("0");
+    sumres = a + b;
+
+    big_integer z1("0");
+    z1 = karatsuba(sumres, c + d);
+
+    big_integer z2("0");
+    z2 = karatsuba(b, d);
+
+    big_integer mn("0");
+    std::string powres = string_pow("10", 2 * sze);
+
+    mn = big_integer(powres);
+
+    big_integer bb("0");
+    bb = z0 + (z1 - z0 - z2) * multiplier + z2 * mn;
+
+    // * z0 + ((z1 - z0 - z2) * multiplier) + (z2 * (long long)(pow(10, 2 * N)));
+
+    return bb;
+}   
 
 big_integer &big_integer::operator/=(big_integer const &divisor) {
     if (divisor.is_equal_to_zero()) {

@@ -5,6 +5,11 @@
 #include <big_integer.h>
 #include <client_logger.h>
 
+clock_t startTime;
+double timing() {
+	return (double)(clock() - startTime) / CLOCKS_PER_SEC;
+}
+
 logger *create_logger(
     std::vector<std::pair<std::string, logger::severity>> const &output_file_streams_setup,
     bool use_console_stream = true,
@@ -41,7 +46,7 @@ TEST(positive_tests, test1)
 
     big_integer bigint_1("2423545763");
     big_integer bigint_2("3657687978");
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::Karatsuba);
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::karatsuba);
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "8864574201457937214");
 
@@ -60,7 +65,7 @@ TEST(positive_tests, test2)
 
     big_integer bigint_1("20944325634363");
     big_integer bigint_2("0");
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::Karatsuba);
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::karatsuba);
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "0");
 
@@ -79,7 +84,7 @@ TEST(positive_tests, test3)
 
     big_integer bigint_1("001123");
     big_integer bigint_2("-0000001");
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::Karatsuba);
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::karatsuba);
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "-1123");
 
@@ -98,7 +103,7 @@ TEST(positive_tests, test4)
 
     big_integer bigint_1("-28958888309635818");
     big_integer bigint_2("-234567");
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::Karatsuba);
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::karatsuba);
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "6792799554126344920806");
 
@@ -120,7 +125,7 @@ TEST(positive_tests, test5)
     big_integer bigint_1("0");
     big_integer bigint_2("0");
     iss >> bigint_1 >> bigint_2;
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::Karatsuba);
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::karatsuba);
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "42118517249079582762848120969952324453639154832768688602860605975");
 
@@ -138,8 +143,14 @@ TEST(positive_tests, test6)
                                        });
 
     big_integer bigint_1("123424353464389587244387927589346894576464343235445645674563532464675467425");
+    big_integer bigint_3("123424353464389587244387927589346894576464343235445645674563532464675467425");
     big_integer bigint_2("2354893245937465784937542389428935349086840957804985309763636567574564");
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::Karatsuba);
+    
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::karatsuba);
+    std::cout << "Karatsuba: " << timing() << std::endl;
+
+    bigint_3.multiply(bigint_3, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
+    std::cout << "Trivial  : " << timing() << std::endl;
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "290651176357489495451049958587923972328418314663424320128873904703658883667429195585130334492391519870913575716570325570910803505581125240577700");
 
@@ -157,8 +168,13 @@ TEST(positive_tests, test7)
                                        });
 
     big_integer bigint_1("999999999999999999999999999977777");
+    big_integer bigint_3("999999999999999999999999999977777");
     big_integer bigint_2("-0000000000000000000000000000000000000000000000000059");
-    big_integer::multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::Karatsuba);
+    bigint_1.multiply(bigint_1, bigint_2, nullptr, big_integer::multiplication_rule::karatsuba);
+    std::cout << "Karatsuba: " << timing() << std::endl;
+
+    bigint_3.multiply(bigint_3, bigint_2, nullptr, big_integer::multiplication_rule::trivial);
+    std::cout << "Trivial  : " << timing() << std::endl;
 
     EXPECT_TRUE((std::ostringstream() << bigint_1).str() == "-58999999999999999999999999998688843");
 

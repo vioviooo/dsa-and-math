@@ -98,6 +98,8 @@ private: // * multiplication
                     big_integer const &second_multiplier) const override;    
     };
 
+    big_integer karatsuba(big_integer &first_multiplier, big_integer const &second_multiplier) const;
+
     // class karatsuba_multiplication final:
     //     public multiplication {
     //         public:
